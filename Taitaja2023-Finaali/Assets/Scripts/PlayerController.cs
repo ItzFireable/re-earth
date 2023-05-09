@@ -15,6 +15,29 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private bool isGrounded = true;
 
+    private float targetDirection = 1;
+    [SerializeField] GameObject hitbox;
+
+    IEnumerator ShowHitbox()
+    {
+        hitbox.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(0.5);
+        hitbox.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    void Attack(string type)
+    {
+        StartCoroutine("ShowHitbox");
+        switch(type)
+        {
+            case "Normal":
+                
+                break;
+            case "Heavy":
+                break;
+        }
+    }
+
     void Start()
     {
         
@@ -27,10 +50,10 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         // Get direction multiplier
-        float dir = horizontalInput < 0 ? -1 : 1;
+        targetDirection = horizontalInput < 0 ? -1 : 1;
 
         // Set RigibBodys velocity based on input and speed multiplier
-        rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * dir, rigidBody.velocity.y);
+        rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
 
         // If spacebar is pressed and player is grounded, set player's Y velocity to up direction multiplied by jump multiplier
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -38,6 +61,14 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             rigidBody.velocity = Vector3.up * jumpMultiplier;
         }
+
+        // If clicked, call for attack (normal)
+        if (Input.GetMouseButtonDown(0))
+            Attack("Normal");
+
+        // If right clicked, call for attack (heavy)
+        if (Input.GetMouseButtonDown(1))
+            Attack("Heavy");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
