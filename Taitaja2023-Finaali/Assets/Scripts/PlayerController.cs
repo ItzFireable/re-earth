@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Parts of the movement taken from https://github.com/KimiJok1/Taitaja-2023-Peliprojekti/blob/main/Assets/Scripts/PlayerController.cs
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rigidBody;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Compare tag to see what player is colliding with
         if (collision.gameObject.CompareTag("Ground")) {
             bool checkDir = true;
 
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        // Compare tag to see what player is colliding with
         if (collision.gameObject.CompareTag("Ground")) {
             bool checkDir = true;
 

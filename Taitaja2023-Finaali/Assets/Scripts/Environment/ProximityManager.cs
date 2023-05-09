@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Script to manage player proximities 
 public class ProximityManager : MonoBehaviour
 {
     [SerializeField] float distance;

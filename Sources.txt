@@ -5,3 +5,6 @@ https://penusbmic.itch.io/sci-fi-character-pack-11
 
 Enviroment
 https://penusbmic.itch.io/sci-fi-dystopian-tileset
+
+Player movement:
+https://github.com/KimiJok1/Taitaja-2023-Peliprojekti
