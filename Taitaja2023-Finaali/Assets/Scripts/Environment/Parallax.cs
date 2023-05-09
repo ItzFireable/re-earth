@@ -9,19 +9,22 @@ public class Parallax : MonoBehaviour
     [SerializeField] private Camera targetCamera;
     [SerializeField] private float parallaxValue;
 
+    // Start position for parallax effect
     private Vector3 startPosition;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Get starting position
         startPosition = sky.transform.position;      
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Get relative position with parallax multiplier
         Vector3 relative_pos = targetCamera.transform.position * parallaxValue;
         relative_pos.z = startPosition.z;
+
+        // Update the sky transform to position correctly with the relative position
         sky.transform.position = startPosition + relative_pos;
     }
 }
