@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator ShowHitbox()
     {
         hitbox.GetComponent<SpriteRenderer>().enabled = true;
-        yield return new WaitForSeconds(0.5);
+        yield return new WaitForSeconds(0.5f);
         hitbox.GetComponent<SpriteRenderer>().enabled = false;
     }
 

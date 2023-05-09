@@ -158,7 +158,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -179,7 +179,7 @@ TextureImporter:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -200,7 +200,7 @@ TextureImporter:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -221,7 +221,7 @@ TextureImporter:
         serializedVersion: 2
         x: 384
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -242,7 +242,7 @@ TextureImporter:
         serializedVersion: 2
         x: 512
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -263,7 +263,7 @@ TextureImporter:
         serializedVersion: 2
         x: 640
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -284,7 +284,7 @@ TextureImporter:
         serializedVersion: 2
         x: 768
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -305,7 +305,7 @@ TextureImporter:
         serializedVersion: 2
         x: 896
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -326,7 +326,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1024
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -345,9 +345,9 @@ TextureImporter:
       name: vagabond-heavy-attack_9
       rect:
         serializedVersion: 2
-        x: 1088
+        x: 1152
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -366,9 +366,9 @@ TextureImporter:
       name: vagabond-heavy-attack_10
       rect:
         serializedVersion: 2
-        x: 1152
+        x: 1280
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -387,9 +387,9 @@ TextureImporter:
       name: vagabond-heavy-attack_11
       rect:
         serializedVersion: 2
-        x: 1216
+        x: 1408
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -408,9 +408,9 @@ TextureImporter:
       name: vagabond-heavy-attack_12
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 1536
         y: 0
-        width: 64
+        width: 128
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -421,111 +421,6 @@ TextureImporter:
       bones: []
       spriteID: 7b60f5902de4cfd449f234e8505ae650
       internalID: 1762662040
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-heavy-attack_13
-      rect:
-        serializedVersion: 2
-        x: 1344
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 725d14efdb2ca794b8d00cf6cadc4ea9
-      internalID: -1317928723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-heavy-attack_14
-      rect:
-        serializedVersion: 2
-        x: 1408
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1c6c51fd690d6534598bd3be68810164
-      internalID: -338376956
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-heavy-attack_15
-      rect:
-        serializedVersion: 2
-        x: 1472
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a92cacf90cda89418bcb783f7c2c39b
-      internalID: 1744317044
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-heavy-attack_16
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0d67928f63feefb48a149425b48bcdf9
-      internalID: 1535913029
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-heavy-attack_17
-      rect:
-        serializedVersion: 2
-        x: 1600
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2013296dea09f164f85a0f35295c7d3c
-      internalID: -1606867267
       vertices: []
       indices: 
       edges: []
@@ -546,11 +441,6 @@ TextureImporter:
       vagabond-heavy-attack_10: 1969778312
       vagabond-heavy-attack_11: -553278641
       vagabond-heavy-attack_12: 1762662040
-      vagabond-heavy-attack_13: -1317928723
-      vagabond-heavy-attack_14: -338376956
-      vagabond-heavy-attack_15: 1744317044
-      vagabond-heavy-attack_16: 1535913029
-      vagabond-heavy-attack_17: -1606867267
       vagabond-heavy-attack_2: 770071834
       vagabond-heavy-attack_3: -277556182
       vagabond-heavy-attack_4: 495032498
