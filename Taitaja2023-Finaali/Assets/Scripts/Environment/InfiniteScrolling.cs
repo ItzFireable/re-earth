@@ -27,6 +27,7 @@ public class InfiniteScrolling : MonoBehaviour
         GameObject leftForeground = Instantiate(foreground, new Vector3(-18.5f,0,0), transform.rotation);
         GameObject rightForeground = Instantiate(foreground, new Vector3(18.5f,0,0), transform.rotation);
 
+        // Parent the clones
         leftBackground.transform.parent = this.gameObject.transform;
         rightBackground.transform.parent = this.gameObject.transform;
 
