@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private int jumpCount = 0;
     private bool isRunning = false;
+    private bool isFalling = false;
     private bool isGrounded = false;
     private bool isOnCooldown = false;
     private float targetDirection = 1;
@@ -80,6 +81,9 @@ public class PlayerController : MonoBehaviour
             print("Stopped running");
         }*/
 
+        if (rigidBody.velocity.y < 0)
+            isFalling = true;
+
         // If spacebar is pressed and player is grounded, set player's Y velocity to up direction multiplied by jump multiplier
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < jumpLimit))
         {
@@ -118,6 +122,7 @@ public class PlayerController : MonoBehaviour
             // Enable jumping again
             isGrounded = checkDir == true ? checkDir : isGrounded;
             jumpCount = isGrounded ? 0 : jumpCount;
+            isFalling = isGrounded ? true : isFalling;
         }
     }
 
