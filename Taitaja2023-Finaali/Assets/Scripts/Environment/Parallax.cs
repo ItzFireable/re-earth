@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    //Script taken from https://vionixstudio.com/2022/09/22/unity-parallax-background/
+    // Script taken from https://vionixstudio.com/2022/09/22/unity-parallax-background/
     [SerializeField] private GameObject object;
     [SerializeField] private Camera camera;
     [SerializeField] private float parallaxValue;
