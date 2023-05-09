@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    
     [SerializeField] private GameObject player;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject realPosition;
 
     [SerializeField] private int maxHealth;
     private int health;
@@ -16,27 +18,25 @@ public class EnemyController : MonoBehaviour
     {
         health = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
-        distanceToPlayer();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        faceToPlayer();
     }
 
-    void distanceToPlayer()
+    void faceToPlayer()
     {
-        float difference = transform.position.x - player.transform.position.x;
-        if(difference < 0 && facing)
+        float difference = realPosition.transform.position.x - player.transform.position.x;
+        if((difference < 0 && facing) || (difference > 0 && !facing))
         {
-            transform.position = new Vector3(transform.position.x + 1.25f, transform.position.y, 0f);
-            
-        }
-        else if(difference > 0 && !facing)
-        {
-            transform.position = new Vector3(transform.position.x - 1.25f, transform.position.y, 0f);
-            
+            transform.localScale = new Vector3(transform.localScale.x * -1f, 1f, 1f);
+            if(facing)
+                transform.position = new Vector3(transform.position.x + 1.75f, transform.position.y, 0f);
+            else
+                transform.position = new Vector3(transform.position.x - 1.75f, transform.position.y, 0f);
+            facing = !facing;
         }
     }
         
