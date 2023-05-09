@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ShowHitbox()
     {
-        int anim = Random.Range(1,4);
+        int anim = 1; //Random.Range(1,4);
         float timer = GetAnimationLength("Attack" + anim);
         
         isOnCooldown = true;
