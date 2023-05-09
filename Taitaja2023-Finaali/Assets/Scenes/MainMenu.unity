@@ -4093,6 +4093,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMultiplier: 0.5
   foregroundSpeedMultiplier: 0.8
+  cloneAmount: 0
+  cloneRight: 1
   background: {fileID: 347278182}
   foreground: {fileID: 1718268327}
 --- !u!1 &1688349410

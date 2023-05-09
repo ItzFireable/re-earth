@@ -8,6 +8,10 @@ public class InfiniteScrolling : MonoBehaviour
     [SerializeField] public float speedMultiplier;
     [SerializeField] public float foregroundSpeedMultiplier;
 
+    // Clone amount & direction
+    [SerializeField] public int cloneAmount;
+    [SerializeField] public bool cloneRight;
+
     // Background and foreground
     [SerializeField] public GameObject background;
     [SerializeField] public GameObject foreground;
@@ -26,6 +30,19 @@ public class InfiniteScrolling : MonoBehaviour
 
         GameObject leftForeground = Instantiate(foreground, new Vector3(-18.5f,0,0), transform.rotation);
         GameObject rightForeground = Instantiate(foreground, new Vector3(18.5f,0,0), transform.rotation);
+
+        // Instantiate more clones
+        for(int i = 0; i < cloneAmount; i++)
+        {
+            GameObject bgClone = Instantiate(background, new Vector3((cloneRight ? 18.5f : -18.5f) * i,0,0), transform.rotation);
+            GameObject fgClone = Instantiate(foreground, new Vector3((cloneRight ? 18.5f : -18.5f) * i,0,0), transform.rotation);
+
+            bgClone.transform.parent = this.gameObject.transform;
+            fgClone.transform.parent = this.gameObject.transform;
+
+            backgroundClones.Add(bgClone);
+            foregroundClones.Add(fgClone);
+        }
 
         // Parent the clones
         leftBackground.transform.parent = this.gameObject.transform;
@@ -65,7 +82,7 @@ public class InfiniteScrolling : MonoBehaviour
 
             // If offscreen, move it to the right
             if (fg.transform.localPosition.x <= -18.5f)
-                fg.transform.localPosition = new Vector3(18.5f,0,0);
+                fg.transform.localPosition = new Vector3(18.5f * cloneAmount,0,0);
         }
     }
 }
