@@ -13,8 +13,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int maxHealth;
     private int health;
 
-    // Facig direction
+    // Facing direction
     private bool facing;
+
+    // Enemy type
+    [SerializeField] int type = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +43,22 @@ public class EnemyController : MonoBehaviour
         // Checks if it is already facing player
         if((difference < 0 && facing) || (difference > 0 && !facing))
         {
-            // Flip enemy and its position
+            // Flip enemy and its position based on its type
             transform.localScale = new Vector3(transform.localScale.x * -1f, 1f, 1f);
             if(facing)
-                transform.position = new Vector3(transform.position.x + 1.75f, transform.position.y, 0f);
+            {
+                if(type == 1)
+                    transform.position = new Vector3(transform.position.x + 1.75f, transform.position.y, 0f);
+                else
+                    transform.position = new Vector3(transform.position.x + 2.75f, transform.position.y, 0f);
+            }
             else
-                transform.position = new Vector3(transform.position.x - 1.75f, transform.position.y, 0f);
+            {
+                if(type == 1)
+                    transform.position = new Vector3(transform.position.x - 1.75f, transform.position.y, 0f);
+                else
+                    transform.position = new Vector3(transform.position.x - 2.75f, transform.position.y, 0f);
+            }
 
             // Flips the facing direction
             facing = !facing;
