@@ -5,6 +5,13 @@ https://penusbmic.itch.io/sci-fi-character-pack-11
 
 Enviroment
 https://penusbmic.itch.io/sci-fi-dystopian-tileset
+https://digitalmoons.itch.io/pixel-skies-demo
 
 Player movement:
 https://github.com/KimiJok1/Taitaja-2023-Peliprojekti
+
+Sounds: 
+https://filmcow.itch.io/filmcow-sfx
+
+Font:
+https://managore.itch.io/m5x7   
