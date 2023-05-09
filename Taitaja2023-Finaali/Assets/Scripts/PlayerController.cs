@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     // Serialized objects for player
     [SerializeField] GameObject hitbox;
+    [SerializeField] GameObject cameraPoint;
     [SerializeField] Rigidbody2D rigidBody;
 
     // Serialized movement variables
@@ -62,7 +63,13 @@ public class PlayerController : MonoBehaviour
 
         // Play animation and wait for it to finish
         animator.SetTrigger("Attack" + anim);
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        transform.position = new Vector3(transform.position.x + 1.25f, transform.position.y, transform.position.z);
+        cameraPoint.transform.localPosition = new Vector3(-1.25f, 0f, 0f);
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length - 0.2f);
+
+        transform.position = new Vector3(transform.position.x - 1.25f, transform.position.y, transform.position.z);
+        cameraPoint.transform.localPosition = new Vector3(0f, 0f, 0f);
 
         // Disable cooldown, (debugging) hide hitbox
         isOnCooldown = false;

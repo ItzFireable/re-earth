@@ -872,6 +872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitbox: {fileID: 562022062}
+  cameraPoint: {fileID: 1893097642}
   rigidBody: {fileID: 1124402989}
   speedMultiplier: 10
   jumpMultiplier: 5
