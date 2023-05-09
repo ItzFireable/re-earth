@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    
+
     [SerializeField] private GameObject player;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject realPosition;
@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
         faceToPlayer();
     }
 
+    //Checks if enemy is looking at player and changes it's facing side
     void faceToPlayer()
     {
         float difference = realPosition.transform.position.x - player.transform.position.x;
