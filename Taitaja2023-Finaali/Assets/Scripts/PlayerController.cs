@@ -26,12 +26,27 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sprRenderer;
 
+    float GetAnimationLength(string name)
+    {
+        var animController = animator.runtimeAnimatorController;
+        var clips = animController.animationClips;
+
+        foreach (AnimationClip clip in clips)
+            if (clip.name == name) return clip.length;
+
+        return 1;
+    }
+
     IEnumerator ShowHitbox()
     {
+        int anim = Random.Range(1,4);
+        float timer = GetAnimationLength("Attack" + anim);
+        
         isOnCooldown = true;
         hitbox.GetComponent<SpriteRenderer>().enabled = true;
+        animator.SetTrigger("Attack" + anim);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
 
         isOnCooldown = false;
         hitbox.GetComponent<SpriteRenderer>().enabled = false;
@@ -60,7 +75,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Get inputs
-        horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
         if (horizontalInput != 0)
