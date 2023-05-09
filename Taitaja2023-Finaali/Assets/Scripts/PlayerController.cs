@@ -63,9 +63,12 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        // Get direction multiplier
-        targetDirection = horizontalInput < 0 ? -1 : 1;
-        sprRenderer.flipX = targetDirection == 1 ? false : true;
+        if (horizontalInput != 0)
+        {
+            // Get direction multiplier
+            targetDirection = horizontalInput < 0 ? -1 : 1;
+            sprRenderer.flipX = targetDirection == 1 ? false : true;
+        }
 
         // Set RigibBodys velocity based on input and speed multiplier
         rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
