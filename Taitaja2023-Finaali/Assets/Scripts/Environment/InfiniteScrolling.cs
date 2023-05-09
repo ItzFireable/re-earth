@@ -21,11 +21,17 @@ public class InfiniteScrolling : MonoBehaviour
     void Start()
     {
         // Instantiate clones
-        GameObject leftBackground = Instantiate(background, new Vector3(-24,0,0), transform.rotation);
-        GameObject rightBackground = Instantiate(background, new Vector3(24,0,0), transform.rotation);
+        GameObject leftBackground = Instantiate(background, new Vector3(-18.5f,0,0), transform.rotation);
+        GameObject rightBackground = Instantiate(background, new Vector3(18.5f,0,0), transform.rotation);
 
-        GameObject leftForeground = Instantiate(foreground, new Vector3(-24,0,0), transform.rotation);
-        GameObject rightForeground = Instantiate(foreground, new Vector3(24,0,0), transform.rotation);
+        GameObject leftForeground = Instantiate(foreground, new Vector3(-18.5f,0,0), transform.rotation);
+        GameObject rightForeground = Instantiate(foreground, new Vector3(18.5f,0,0), transform.rotation);
+
+        leftBackground.transform.parent = this.gameObject.transform;
+        rightBackground.transform.parent = this.gameObject.transform;
+
+        leftForeground.transform.parent = this.gameObject.transform;
+        rightForeground.transform.parent = this.gameObject.transform;
 
         // Add them to a list
         backgroundClones.Add(background);
@@ -46,8 +52,8 @@ public class InfiniteScrolling : MonoBehaviour
             bg.transform.localPosition = new Vector3(bg.transform.localPosition.x - (xOffset * speedMultiplier),0,0);
 
             // If offscreen, move it to the right
-            if (bg.transform.localPosition.x <= -24)
-                bg.transform.localPosition = new Vector3(24,0,0);
+            if (bg.transform.localPosition.x <= -18.5f)
+                bg.transform.localPosition = new Vector3(18.5f,0,0);
         }
 
         // Go through every foreground
@@ -57,8 +63,8 @@ public class InfiniteScrolling : MonoBehaviour
             fg.transform.localPosition = new Vector3(fg.transform.localPosition.x - (xOffset * speedMultiplier * foregroundSpeedMultiplier),0,0);
 
             // If offscreen, move it to the right
-            if (fg.transform.localPosition.x <= -24)
-                fg.transform.localPosition = new Vector3(24,0,0);
+            if (fg.transform.localPosition.x <= -18.5f)
+                fg.transform.localPosition = new Vector3(18.5f,0,0);
         }
     }
 }
