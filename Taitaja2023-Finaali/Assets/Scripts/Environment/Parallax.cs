@@ -5,7 +5,7 @@ using UnityEngine;
 public class Parallax : MonoBehaviour
 {
     // Script taken from https://vionixstudio.com/2022/09/22/unity-parallax-background/
-    [SerializeField] private GameObject object;
+    [SerializeField] private GameObject sky;
     [SerializeField] private Camera camera;
     [SerializeField] private float parallaxValue;
 
@@ -14,7 +14,7 @@ public class Parallax : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPosition = object.transform.position;      
+        startPosition = sky.transform.position;      
     }
 
     // Update is called once per frame
@@ -22,6 +22,6 @@ public class Parallax : MonoBehaviour
     {
         Vector3 relative_pos = camera.transform.position * parallaxValue;
         relative_pos.z = startPosition.z;
-        object.transform.position = startPosition + relative_pos;
+        sky.transform.position = startPosition + relative_pos;
     }
 }
