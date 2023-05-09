@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float verticalInput;
     [SerializeField] private float horizontalInput;
 
-    private bool isGrounded = true;
+    [SerializeField] private bool isGrounded = true;
 
     void Start()
     {
