@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 77a8347cb107f9341933bfc9a00fa052
+guid: 6aa7c857c29199844a8af70ae8cbd5f5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -153,13 +153,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: vagabond-attack_0
+      name: attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +167,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1ba62061d434cb4c8a9dfd61a5b08f8
-      internalID: -1902934898
+      spriteID: fbcda41e94eb0fd4e939f79230510cb5
+      internalID: -902843457
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_1
+      name: attack_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 106
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,20 +188,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2d112597f0212541baa2e3178771463
-      internalID: 1497788726
+      spriteID: ea176dc65838f6849b27a536f21ce458
+      internalID: 1529868697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_2
+      name: attack_2
       rect:
         serializedVersion: 2
-        x: 256
+        x: 212
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,20 +209,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29290926566a53d42ba2ffeef1cf1d38
-      internalID: -1917693790
+      spriteID: 2e5c340ea3fa30141b3e9f7b2c89c7b5
+      internalID: -1427751553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_3
+      name: attack_3
       rect:
         serializedVersion: 2
-        x: 384
+        x: 318
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,20 +230,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a6e77a669f5b1d488a26af693598c19
-      internalID: 802841396
+      spriteID: 97de2e33cc2a84749bdf44f0c1b881e9
+      internalID: 1286830944
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_4
+      name: attack_4
       rect:
         serializedVersion: 2
-        x: 512
+        x: 424
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,20 +251,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 10880a80313dab54ab588e1a8214aa62
-      internalID: 1037130916
+      spriteID: ae0661f7e4a29ba4bbc9542ff4648943
+      internalID: -1569829228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_5
+      name: attack_5
       rect:
         serializedVersion: 2
-        x: 640
+        x: 530
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,20 +272,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bbd766c2bf2ece478c9f5e6e464d2a5
-      internalID: 2097931659
+      spriteID: c27ddf74b690b8b4aa6b43fd326f0e39
+      internalID: -609466130
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_6
+      name: attack_6
       rect:
         serializedVersion: 2
-        x: 768
+        x: 636
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -293,20 +293,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 559da026a1d0a994c8c862f9e8d2438c
-      internalID: 228843369
+      spriteID: 618ee791aa16f054181432819e36f63a
+      internalID: 472602888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_7
+      name: attack_7
       rect:
         serializedVersion: 2
-        x: 896
+        x: 742
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -314,20 +314,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33e72e828cc167c448cd05d07de5e163
-      internalID: -1451438532
+      spriteID: 9fdc42a5fb67a5b4d85ea877b700a3bb
+      internalID: -1896764120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_8
+      name: attack_8
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 848
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -335,20 +335,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a3508f9166d626498da32314bd9c4cd
-      internalID: 399931621
+      spriteID: a3abccc2895873b49aea310f119e02d3
+      internalID: 886061022
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_9
+      name: attack_9
       rect:
         serializedVersion: 2
-        x: 1152
+        x: 954
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,20 +356,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 750bf8223d3d546488d7cd8d4649b17e
-      internalID: -1843680652
+      spriteID: 3efd8815d020d2547ada4053648a42a6
+      internalID: 1317228071
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vagabond-attack_10
+      name: attack_10
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 1060
         y: 0
-        width: 128
-        height: 64
+        width: 106
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -377,92 +377,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4b682717f6fad646be8a6543e701f8d
-      internalID: -191457547
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-attack_11
-      rect:
-        serializedVersion: 2
-        x: 1408
-        y: 0
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2eeec024e8da02b42bb63f88eb776cbc
-      internalID: 2079111264
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-attack_12
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75c3762f4bf263c4fb1f09d47fbb5335
-      internalID: -13296373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-attack_13
-      rect:
-        serializedVersion: 2
-        x: 1664
-        y: 0
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b0f317df3826f124c893c3b1ec1afa35
-      internalID: -864754530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vagabond-attack_14
-      rect:
-        serializedVersion: 2
-        x: 1792
-        y: 0
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e579ece636cd50140b9cb5d37f8a6d73
-      internalID: -1375915158
+      spriteID: 8ff0c311c9a3a9345957f978c71b3752
+      internalID: 2066616017
       vertices: []
       indices: 
       edges: []
@@ -478,21 +394,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      vagabond-attack_0: -1902934898
-      vagabond-attack_1: 1497788726
-      vagabond-attack_10: -191457547
-      vagabond-attack_11: 2079111264
-      vagabond-attack_12: -13296373
-      vagabond-attack_13: -864754530
-      vagabond-attack_14: -1375915158
-      vagabond-attack_2: -1917693790
-      vagabond-attack_3: 802841396
-      vagabond-attack_4: 1037130916
-      vagabond-attack_5: 2097931659
-      vagabond-attack_6: 228843369
-      vagabond-attack_7: -1451438532
-      vagabond-attack_8: 399931621
-      vagabond-attack_9: -1843680652
+      attack_0: -902843457
+      attack_1: 1529868697
+      attack_10: 2066616017
+      attack_2: -1427751553
+      attack_3: 1286830944
+      attack_4: -1569829228
+      attack_5: -609466130
+      attack_6: 472602888
+      attack_7: -1896764120
+      attack_8: 886061022
+      attack_9: 1317228071
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
