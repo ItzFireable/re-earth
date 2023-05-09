@@ -81,8 +81,7 @@ public class PlayerController : MonoBehaviour
             print("Stopped running");
         }*/
 
-        if (rigidBody.velocity.y < 0)
-            isFalling = true;
+        animator.SetBool("Running",rigidBody.velocity.x != 0);
 
         // If spacebar is pressed and player is grounded, set player's Y velocity to up direction multiplied by jump multiplier
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < jumpLimit))
