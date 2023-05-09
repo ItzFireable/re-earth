@@ -20,6 +20,7 @@ public class PlayerSoundManager : MonoBehaviour
     {
         // Set loopable to false and switch types, and get the correct audio for each type
         source.loop = false;
+        
         switch(type)
         {
             case "Attack":
