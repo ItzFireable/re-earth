@@ -32,7 +32,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void Close()
     {
-
+        Application.Quit();
     }
 
     // Start is called before the first frame update
