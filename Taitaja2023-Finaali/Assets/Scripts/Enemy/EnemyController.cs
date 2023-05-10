@@ -63,9 +63,6 @@ public class EnemyController : MonoBehaviour
         else{
             animator.SetBool("Running", false);
         }
-
-        if(Input.GetKeyDown(KeyCode.Q))
-            TakeDamage(1f);
     }
 
     void OnDrawGizmosSelected()
