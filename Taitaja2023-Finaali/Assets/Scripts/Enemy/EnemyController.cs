@@ -46,16 +46,21 @@ public class EnemyController : MonoBehaviour
         // Update facing direction
         FaceToPlayer();
 
-        if(Mathf.Abs(difference) < attackDistance && !attacking)
-        {
-            animator.SetBool("Running", false);
-            StartCoroutine("Attack");
+        if(player.GetComponent<PlayerController>().energy > 0){
+            if(Mathf.Abs(difference) < attackDistance && !attacking)
+            {
+                animator.SetBool("Running", false);
+                StartCoroutine("Attack");
+            }
+            else if(Mathf.Abs(difference) > attackDistance && !attacking)
+            {
+                Vector3 playerPos = new Vector3(player.transform.position.x, transform.position.y, 0);
+                transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
+                animator.SetBool("Running", true);
+            }
         }
-        else if(Mathf.Abs(difference) > attackDistance && !attacking)
-        {
-            Vector3 playerPos = new Vector3(player.transform.position.x, transform.position.y, 0);
-            transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
-            animator.SetBool("Running", true);
+        else{
+            animator.SetBool("Running", false);
         }
     }
 
@@ -100,6 +105,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(attackCooldownTime);
         attacking = false;
         attackArea.enabled = false;
+        hasAttacked = false;
     }
 
     void OnTriggerEnter2D(Collider2D col)
