@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     private bool hasAttacked = false;
     [SerializeField] private float attackCooldownTime = 0.75f;
     private float attackCooldown;
+    [SerializeField] private float damage = 10f;
 
 
     // Enemy type
@@ -111,7 +112,7 @@ public class EnemyController : MonoBehaviour
     {
         if(col.gameObject.tag == "Player")
         {
-            print("Hit player");
+            col.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         }
     }
 }
