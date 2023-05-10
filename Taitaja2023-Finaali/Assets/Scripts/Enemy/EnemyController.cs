@@ -13,8 +13,10 @@ public class EnemyController : MonoBehaviour
     float difference;
 
     // Health properties
-    [SerializeField] private int maxHealth;
-    private int health;
+    [SerializeField] private float maxHealth;
+    private float health;
+    private bool isDead = false;
+    private bool wasCollected;
 
     // Facing direction
     [SerializeField] private bool facing;
@@ -46,7 +48,7 @@ public class EnemyController : MonoBehaviour
         // Update facing direction
         FaceToPlayer();
 
-        if(player.GetComponent<PlayerController>().energy > 0){
+        if(player.GetComponent<PlayerController>().energy > 0 && !isDead){
             if(Mathf.Abs(difference) < attackDistance && !attacking)
             {
                 animator.SetBool("Running", false);
@@ -62,6 +64,9 @@ public class EnemyController : MonoBehaviour
         else{
             animator.SetBool("Running", false);
         }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+            TakeDamage(1f);
     }
 
     void OnDrawGizmosSelected()
@@ -100,11 +105,22 @@ public class EnemyController : MonoBehaviour
     IEnumerator Attack()
     {
         attacking = true;
-        attackArea.enabled = true;
         animator.SetTrigger("Attack1");
-        yield return new WaitForSeconds(attackCooldownTime);
+        if(type == 2)
+        {
+            yield return new WaitForSeconds(0.5f);
+            attackArea.enabled = true;
+            yield return new WaitForSeconds((attackCooldownTime - 0.5f));
+            attackArea.enabled = false;
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.25f);
+            attackArea.enabled = true;
+            yield return new WaitForSeconds((attackCooldownTime - 0.25f));
+            attackArea.enabled = false;
+        }
         attacking = false;
-        attackArea.enabled = false;
         hasAttacked = false;
     }
 
@@ -115,6 +131,22 @@ public class EnemyController : MonoBehaviour
         {
             hasAttacked = true;
             col.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+        }
+    }
+
+    public void TakeDamage(float amount)
+    {
+        if(isDead) 
+            return;
+        health -= amount;
+        if(health <= 0)
+        {
+            animator.SetTrigger("Die");
+            isDead = true;
+        }
+        else
+        {
+            animator.SetTrigger("TakeDamage");
         }
     }
 }
