@@ -133,18 +133,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccb386c4c81c75439f98d5b8385fa49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   animator: {fileID: 19258359334761537}
+  player: {fileID: 0}
   realPosition: {fileID: 19258358767986832}
+  roundManager: {fileID: 0}
   maxHealth: 4
   health: 0
+  isDead: 0
+  wasCollected: 0
   facing: 0
   speed: 1.5
   attackDistance: 2
   attackArea: {fileID: 19258360456239340}
   attacking: 0
   attackCooldownTime: 1.5
-  damage: 10
+  damage: 2
   type: 2
 --- !u!95 &19258359334761537
 Animator:
