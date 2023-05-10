@@ -13,7 +13,10 @@ public class RoundManager : MonoBehaviour
     [SerializeField] GameObject parent;
 
     // UI
+    [SerializeField] AudioSource sound;
     [SerializeField] Canvas canvas;
+    [SerializeField] Image fade;
+
     TMP_Text enemyLabel;
     TMP_Text roundLabel;
 
@@ -24,6 +27,8 @@ public class RoundManager : MonoBehaviour
     // Round stats
     public int curRound = 0;
     bool spawning = false;
+    bool canStart = false;
+
     [SerializeField] int enemiesForRound = 0;
 
     [SerializeField] private GameObject cameraBoundaries;
@@ -34,6 +39,19 @@ public class RoundManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
             if (enemies[i] == enemy) 
                 enemies.Remove(enemies[i]);
+    }
+
+    IEnumerator FadeIn()
+    {
+        for (float i = 0; i <= 1; i += Time.deltaTime)
+        {
+            fade.color = new Color(0, 0, 0, 1 - i);
+            sound.volume = 0f + (i/10);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1f);
+        canStart = true;
     }
 
     IEnumerator StartRound()
@@ -69,6 +87,7 @@ public class RoundManager : MonoBehaviour
         enemyLabel = canvas.transform.Find("EnemyText").GetComponent<TMP_Text>();
         roundLabel = canvas.transform.Find("RoundText").GetComponent<TMP_Text>();
 
+        StartCoroutine("FadeIn");
         foreach (var i in cameraBoundaries.GetComponent<PolygonCollider2D>().points)
         {
             if (i.x < minX) 
@@ -86,7 +105,7 @@ public class RoundManager : MonoBehaviour
         else
             roundLabel.text = "Round " + curRound;
 
-        if (enemies.Count <= 0 && !spawning)
+        if (enemies.Count <= 0 && !spawning && canStart)
         {
             spawning = true;
             curRound += 1;

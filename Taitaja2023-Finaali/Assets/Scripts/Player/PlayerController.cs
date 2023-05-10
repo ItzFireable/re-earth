@@ -174,6 +174,7 @@ public class PlayerController : MonoBehaviour
         if (playAnim)
         {
             animator.SetTrigger("TakeDamage");
+            soundManager.PlaySound("Damage");
         }
 
         energy -= amount;
@@ -232,13 +233,16 @@ public class PlayerController : MonoBehaviour
             if(!isAttacking)
                 rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
 
+            if (rigidBody.velocity.x != 0 && !isAttacking)
+                soundManager.PlaySound("Run");
+            else
+                soundManager.StopSound("Run");
+
             // Set running on animator if player is moving (TODO: Change this)
             animator.SetBool("Running",rigidBody.velocity.x != 0 && !isAttacking);
 
             if(Input.GetKeyDown(KeyCode.Space))
-            {
                 Dash();
-            }
             
             // If clicked, call for attack (normal)
             if (Input.GetMouseButtonDown(0))
@@ -279,6 +283,8 @@ public class PlayerController : MonoBehaviour
     {
         dashing = true;
         animator.SetTrigger("Dash");
+        soundManager.PlaySound("Dash");
+
         if((transform.position.x + (dashDistance * targetDirection)) < maxX && (transform.position.x + (dashDistance * targetDirection)) > minX)
         {
             dashPoint = new Vector2(transform.position.x + dashDistance * targetDirection, transform.position.y);
