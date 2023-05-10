@@ -2598,7 +2598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6e8e556dacb39488d7ab1fc1dbdbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 853310100}
   prompt: {fileID: 4097797310285701452, guid: 17f2e41d7ae562345879d5a6cea6533c, type: 3}
 --- !u!1001 &1074445494
 PrefabInstance:
