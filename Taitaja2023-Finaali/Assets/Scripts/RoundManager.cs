@@ -22,7 +22,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] List<GameObject> enemies = new List<GameObject>();
 
     // Round stats
-    int curRound = 0;
+    public int curRound = 0;
     bool spawning = false;
     [SerializeField] int enemiesForRound = 0;
 
@@ -81,7 +81,10 @@ public class RoundManager : MonoBehaviour
     void Update()
     {
         enemyLabel.text = "Enemies left: " + enemies.Count;
-        roundLabel.text = "Round " + curRound;
+        if(curRound > 5)
+            roundLabel.text = "Round " + 5;
+        else
+            roundLabel.text = "Round " + curRound;
 
         if (enemies.Count <= 0 && !spawning)
         {
