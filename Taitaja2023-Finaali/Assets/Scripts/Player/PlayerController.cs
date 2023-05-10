@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System;
 
 // Parts of the movement taken from https://github.com/KimiJok1/Taitaja-2023-Peliprojekti/blob/main/Assets/Scripts/PlayerController.cs
 public class PlayerController : MonoBehaviour
 {
     // Serialized objects for player
+    [SerializeField] Canvas canvas;
     [SerializeField] GameObject hitbox;
     [SerializeField] GameObject cameraPoint;
     [SerializeField] Rigidbody2D rigidBody;
@@ -15,13 +19,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpMultiplier;
     [SerializeField] float jumpLimit;
 
+    // Energy variables
+    [SerializeField] private float energy = 100;
+    [SerializeField] public float maxEnergy = 100;
+
+    // Energy multipliers
+    [SerializeField] public float energyGainMultiplier = 1;
+    [SerializeField] public float maxEnergyMultiplier = 1;
+
     // Inputs
     private float verticalInput;
     private float horizontalInput;
 
     // Movement variables
     private int jumpCount = 0;
-    private bool isRunning = false;
+    private bool isDead = false;
     private bool isFalling = false;
     private bool isGrounded = false;
     private bool isOnCooldown = false;
@@ -33,6 +45,9 @@ public class PlayerController : MonoBehaviour
 
     // Sound manager
     private PlayerSoundManager soundManager;
+
+    // Start time
+    float startTime;
 
     // Unused function to get animation length of any animation from the controller. Will probably be used someday.
     float GetAnimationLength(string name)
@@ -47,11 +62,20 @@ public class PlayerController : MonoBehaviour
         return 1;
     }
 
+    IEnumerator Death()
+    {
+        isDead = true;
+        rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
+        animator.SetTrigger("Die");
+
+        yield return new WaitForSeconds(3);
+    }
+
     // Used for managing attacks
     IEnumerator Attack()
     {
         // Randomize animation
-        int anim = Random.Range(1,4);
+        int anim = UnityEngine.Random.Range(1,4);
 
         // Enable cooldown, play sound
         isOnCooldown = true;
@@ -59,30 +83,42 @@ public class PlayerController : MonoBehaviour
 
         // (Debugging) show hitbox
         hitbox.GetComponent<SpriteRenderer>().enabled = true;
-        hitbox.transform.localPosition = new Vector3(1*targetDirection,0,0);
+        rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
 
         // Play animation and wait for it to finish
         animator.SetTrigger("Attack" + anim);
 
         // Wait until animation starts
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0);
-        transform.position = new Vector3(transform.position.x + 1.25f, transform.position.y, transform.position.z);
-        cameraPoint.transform.localPosition = new Vector3(-1.25f, 0f, 0f);
+
+        // Offset animation position
+        transform.position = new Vector3(transform.position.x + (1.25f * targetDirection), transform.position.y, transform.position.z);
+        hitbox.transform.localPosition = new Vector3((1.5f*targetDirection) - (1.25f * targetDirection),-0.95f,0);
+        cameraPoint.transform.localPosition = new Vector3((1.25f * -targetDirection), 0f, 0f);
 
         // Wait for the animation length
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        transform.position = new Vector3(transform.position.x - 1.25f, transform.position.y, transform.position.z);
-        cameraPoint.transform.localPosition = new Vector3(0f, 0f, 0f);
 
-        // Disable cooldown, (debugging) hide hitbox
-        isOnCooldown = false;
+        // Reset animation position
+        transform.position = new Vector3(transform.position.x - (1.25f * targetDirection), transform.position.y, transform.position.z);
+        hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
+        cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
+
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        // (debugging) hide hitbox, wait half a second
         hitbox.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+
+        // Disable cooldown
+        isOnCooldown = false;
     }
 
     // Called before attack to check attack type & to check cooldown
     void CheckAttack(string type)
     {
         if (isOnCooldown) return;
+        if (isDead) return;
 
         switch(type)
         {
@@ -95,12 +131,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GainEnergy(float amount)
+    {
+        if (isDead) return;
+        energy += (amount * energyGainMultiplier);
+    }
+
+    void DamageOverTime()
+    {
+        energy -= .5f;
+    }
+
     void Start()
     {
         // Get sprite animator, sprite renderer and sound manager
         animator = GetComponent<Animator>();
         sprRenderer = GetComponent<SpriteRenderer>();
         soundManager = GetComponent<PlayerSoundManager>();
+
+        // Take damage over time
+        InvokeRepeating("DamageOverTime", 1f, 1f);
+
+        // Get start time
+        startTime = Time.time;
     }
 
     void Update()
@@ -109,37 +162,55 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        if (horizontalInput != 0)
+        // Run these if player isn't dead
+        if (!isDead)
         {
-            // Get direction multiplier
-            targetDirection = horizontalInput < 0 ? -1 : 1;
-            sprRenderer.flipX = targetDirection == 1 ? false : true;
+            if (horizontalInput != 0)
+            {
+                // Get direction multiplier
+                targetDirection = horizontalInput < 0 ? -1 : 1;
+                sprRenderer.flipX = targetDirection == 1 ? false : true;
+            }
+
+            // Set RigibBodys velocity based on input and speed multiplier
+            rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
+
+            // Set running on animator if player is moving (TODO: Change this)
+            animator.SetBool("Running",rigidBody.velocity.x != 0);
+
+            // If spacebar is pressed and player is grounded, set player's Y velocity to up direction multiplied by jump multiplier
+            if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < jumpLimit))
+            {
+                jumpCount++;
+                isGrounded = false;
+                rigidBody.velocity = Vector3.up * jumpMultiplier;
+            }
+
+            // If clicked, call for attack (normal)
+            if (Input.GetMouseButtonDown(0))
+                CheckAttack("Normal");
+
+            // If right clicked, call for attack (heavy)
+            if (Input.GetMouseButtonDown(1))
+                CheckAttack("Heavy");
+
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+                print("block");
         }
 
-        // Set RigibBodys velocity based on input and speed multiplier
-        rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
+        float t = (Time.time - startTime) / 0.1f;
 
-        // Set running on animator if player is moving (TODO: Change this)
-        animator.SetBool("Running",rigidBody.velocity.x != 0);
+        // Update UI
+        Transform EnergyBar = canvas.transform.Find("EnergyBar");
+        EnergyBar.GetComponent<Slider>().value = (float)System.Math.Round(energy,0);
+        EnergyBar.GetComponent<Slider>().maxValue = (float)System.Math.Round(maxEnergy * maxEnergyMultiplier,0);
+        EnergyBar.Find("FillText").GetComponent<TMP_Text>().text = "Energy: " + System.Math.Round(energy,0) + "/" + System.Math.Round(maxEnergy * maxEnergyMultiplier,0);
 
-        // If spacebar is pressed and player is grounded, set player's Y velocity to up direction multiplied by jump multiplier
-        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < jumpLimit))
+        // Check player health
+        if (System.Math.Round(energy,0) <= 0)
         {
-            jumpCount++;
-            isGrounded = false;
-            rigidBody.velocity = Vector3.up * jumpMultiplier;
+            StartCoroutine("Death");
         }
-
-        // If clicked, call for attack (normal)
-        if (Input.GetMouseButtonDown(0))
-            CheckAttack("Normal");
-
-        // If right clicked, call for attack (heavy)
-        if (Input.GetMouseButtonDown(1))
-            CheckAttack("Heavy");
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            print("block");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
