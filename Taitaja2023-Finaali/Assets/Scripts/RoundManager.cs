@@ -9,6 +9,7 @@ public class RoundManager : MonoBehaviour
 {
     // General
     [SerializeField] Camera targetCamera;
+    [SerializeField] GameObject player;
     [SerializeField] GameObject parent;
 
     // UI
@@ -25,6 +26,13 @@ public class RoundManager : MonoBehaviour
     bool spawning = false;
     [SerializeField] int enemiesForRound = 0;
 
+    public void setKill(GameObject enemy)
+    {
+        for (int i = 0; i < enemies.Count; i++)
+            if (enemies[i] == enemy) 
+                enemies.Remove(enemies[i]);
+    }
+
     IEnumerator StartRound()
     {
         for (int i = 0; i < enemiesForRound; i++)
@@ -32,8 +40,9 @@ public class RoundManager : MonoBehaviour
             GameObject prefab = enemyPrefabs[UnityEngine.Random.Range(0,enemyPrefabs.Count)];
 
             Transform target = UnityEngine.Random.Range(1,3) == 1 ? targetCamera.transform.Find("Left") : targetCamera.transform.Find("Right");
-            GameObject enemy = Instantiate(prefab, target.position, target.rotation);
+            GameObject enemy = Instantiate(prefab, new Vector3(target.position.x, player.transform.position.y, 0), target.rotation);
 
+            enemy.GetComponent<EnemyController>().roundManager = this;
             enemy.transform.parent = parent.transform;
             enemies.Add(enemy);
 

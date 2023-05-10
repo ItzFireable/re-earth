@@ -5,9 +5,10 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     // Serialized fields for the enemy
-    [SerializeField] private GameObject player;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject player;
     [SerializeField] private GameObject realPosition;
+    [SerializeField] public RoundManager roundManager;
 
     // positional difference for player and enemy
     float difference;
@@ -139,6 +140,9 @@ public class EnemyController : MonoBehaviour
         {
             animator.SetTrigger("Die");
             isDead = true;
+            
+            roundManager.setKill(gameObject);
+            player.GetComponent<PlayerController>().GainEnergy(20);
         }
         else
         {
