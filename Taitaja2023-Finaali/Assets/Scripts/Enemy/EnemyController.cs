@@ -9,15 +9,27 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject realPosition;
 
+    // positional difference for player and enemy
+    float difference;
+
     // Health properties
     [SerializeField] private int maxHealth;
     private int health;
 
     // Facing direction
-    private bool facing;
+    [SerializeField] private bool facing;
+    public float speed = 1.5f;
+
+    [SerializeField] private float attackDistance = 0.75f;
+    [SerializeField] private BoxCollider2D attackArea;
+    [SerializeField] private bool attacking = false;
+    private bool hasAttacked = false;
+    [SerializeField] private float attackCooldownTime = 0.75f;
+    private float attackCooldown;
+
 
     // Enemy type
-    [SerializeField] int type = 1;
+    [SerializeField] private int type = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +42,34 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        difference = realPosition.transform.position.x - player.transform.position.x;
         // Update facing direction
-        faceToPlayer();
+        FaceToPlayer();
+
+        if(Mathf.Abs(difference) < attackDistance && !attacking)
+        {
+            animator.SetBool("Running", false);
+            StartCoroutine("Attack");
+        }
+        else if(Mathf.Abs(difference) > attackDistance && !attacking)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            animator.SetBool("Running", true);
+        }
+        if(attackCooldown > 0)
+        {
+            attackCooldown -= Time.deltaTime;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(realPosition.transform.position, attackDistance);
     }
 
     // Function to check if enemy is facing player or not
-    void faceToPlayer()
+    void FaceToPlayer()
     {
-        // Get positional difference for player and enemy
-        float difference = realPosition.transform.position.x - player.transform.position.x;
-
         // Checks if it is already facing player
         if((difference < 0 && facing) || (difference > 0 && !facing))
         {
@@ -64,5 +94,20 @@ public class EnemyController : MonoBehaviour
             facing = !facing;
         }
     }
-        
+    
+    IEnumerator Attack()
+    {
+        attacking = true;
+        attackCooldown = attackCooldownTime;
+        attackArea.enabled = true;
+        animator.SetTrigger("Attack1");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        attacking = false;
+        attackArea.enabled = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log(col.gameObject.name + " : " + Time.time);
+    }
 }

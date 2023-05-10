@@ -1255,7 +1255,6 @@ GameObject:
   m_Component:
   - component: {fileID: 350145689}
   - component: {fileID: 350145688}
-  - component: {fileID: 350145691}
   - component: {fileID: 350145690}
   m_Layer: 0
   m_Name: Player
@@ -1352,18 +1351,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &350145691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350145687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88d4488767f767645b78c707c4cff9dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &485602398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,7 +1375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485602398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0, z: 0}
+  m_LocalPosition: {x: -1.5, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1480,7 +1467,8 @@ GameObject:
   - component: {fileID: 1052371087}
   - component: {fileID: 1052371089}
   - component: {fileID: 1052371088}
-  m_Layer: 0
+  - component: {fileID: 1052371091}
+  m_Layer: 3
   m_Name: Green Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1547,7 +1535,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052371084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.07, y: 0.21, z: 0}
+  m_LocalPosition: {x: -0.9, y: 1.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1629,7 +1617,39 @@ MonoBehaviour:
   animator: {fileID: 1052371087}
   realPosition: {fileID: 485602398}
   maxHealth: 0
+  facing: 0
+  speed: 1.5
+  attackDistance: 2
+  attackArea: {fileID: 1052371091}
+  attacking: 0
+  attackCooldownTime: 0.75
   type: 2
+--- !u!61 &1052371091
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052371084}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.50285006, y: -0.13714105}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.4166665, y: 0.9166667}
+    newSize: {x: 1.06, y: 0.22}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.4338226, y: 0.43667305}
+  m_EdgeRadius: 0
 --- !u!1 &1224379373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,7 +2317,8 @@ GameObject:
   - component: {fileID: 1675950188}
   - component: {fileID: 1675950189}
   - component: {fileID: 1675950190}
-  m_Layer: 0
+  - component: {fileID: 1675950193}
+  m_Layer: 3
   m_Name: Brown Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -2364,7 +2385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675950185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.48, y: -1.01, z: 0}
+  m_LocalPosition: {x: -0.31, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2429,7 +2450,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!114 &1675950192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,7 +2467,39 @@ MonoBehaviour:
   animator: {fileID: 1675950188}
   realPosition: {fileID: 1830413139}
   maxHealth: 0
+  facing: 0
+  speed: 1.5
+  attackDistance: 1
+  attackArea: {fileID: 1675950193}
+  attacking: 0
+  attackCooldownTime: 0.75
   type: 1
+--- !u!61 &1675950193
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675950185}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.3366665, y: -0.13142693}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.4166667, y: 0.9583333}
+    newSize: {x: 0.82, y: 0.23}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.86907285, y: 0.2611997}
+  m_EdgeRadius: 0
 --- !u!1 &1699410842
 GameObject:
   m_ObjectHideFlags: 0
