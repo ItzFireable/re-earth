@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
 
         // (debugging) hide hitbox, wait half a second
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         // Disable cooldown
         isOnCooldown = false;
