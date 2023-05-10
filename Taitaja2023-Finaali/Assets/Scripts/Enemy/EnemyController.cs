@@ -25,7 +25,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool attacking = false;
     private bool hasAttacked = false;
     [SerializeField] private float attackCooldownTime = 0.75f;
-    private float attackCooldown;
     [SerializeField] private float damage = 10f;
 
 
@@ -57,10 +56,6 @@ public class EnemyController : MonoBehaviour
             Vector3 playerPos = new Vector3(player.transform.position.x, transform.position.y, 0);
             transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
             animator.SetBool("Running", true);
-        }
-        if(attackCooldown > 0)
-        {
-            attackCooldown -= Time.deltaTime;
         }
     }
 
@@ -100,18 +95,19 @@ public class EnemyController : MonoBehaviour
     IEnumerator Attack()
     {
         attacking = true;
-        attackCooldown = attackCooldownTime;
         attackArea.enabled = true;
         animator.SetTrigger("Attack1");
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(attackCooldownTime);
         attacking = false;
         attackArea.enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Player")
+        print(col.gameObject.tag);
+        if(col.gameObject.tag == "Player" && !hasAttacked && attacking)
         {
+            hasAttacked = true;
             col.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         }
     }
