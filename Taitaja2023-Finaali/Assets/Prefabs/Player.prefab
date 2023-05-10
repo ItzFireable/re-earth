@@ -151,10 +151,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3605925414912320864}
+  - component: {fileID: 3712960769125120398}
   - component: {fileID: 1306413397438127851}
   - component: {fileID: 4357006628730591663}
-  - component: {fileID: 6754045802848900741}
-  - component: {fileID: 1073995531367216748}
+  - component: {fileID: 2780962637944535677}
   - component: {fileID: 6757115043735265175}
   - component: {fileID: 5932794087059997817}
   - component: {fileID: 1861787655676471240}
@@ -284,7 +284,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1073995531367216748
+--- !u!114 &1306413397438127851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065092027514478640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90dd98ec635a4704db01bd848a86a482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  hitbox: {fileID: 5314280770114062201}
+  cameraPoint: {fileID: 3749797625099070774}
+  rigidBody: {fileID: 6757115043735265175}
+  speedMultiplier: 7
+  jumpMultiplier: 8
+  jumpLimit: 2
+  energy: 100
+  maxEnergy: 100
+  energyGainMultiplier: 1
+  maxEnergyMultiplier: 1
+  dashDistance: 2
+  dashSpeed: 10
+  minX: 0
+  maxX: 0
+  cameraBoundaries: {fileID: 0}
+  animator: {fileID: 2780962637944535677}
+  sprRenderer: {fileID: 3712960769125120398}
+  damage: 1
+--- !u!114 &4357006628730591663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065092027514478640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c597335e78b1c1a4b9a7b048f1778f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 1861787655676471240}
+  runSound: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
+  jumpSound: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
+  fallSound: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
+  - {fileID: 8300000, guid: 34400d551d2301648ba672075dc858f2, type: 3}
+  - {fileID: 8300000, guid: ec3e0de8f224ca04ebc531e1f57e5ac7, type: 3}
+  heavyAttackSound: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
+--- !u!95 &2780962637944535677
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
