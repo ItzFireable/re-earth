@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject cameraBoundaries;
 
     // Objects for player
-    private Animator animator;
-    private SpriteRenderer sprRenderer;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer sprRenderer;
 
     // Sound manager
     private PlayerSoundManager soundManager;
@@ -105,20 +105,20 @@ public class PlayerController : MonoBehaviour
 
         // Enable hitbox collision check
         isAttacking = true;
-
+        hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
         // Offset animation position
-        transform.position = new Vector3(transform.position.x + (1.25f * targetDirection), transform.position.y, transform.position.z);
-        hitbox.transform.localPosition = new Vector3((1.5f*targetDirection) - (1.25f * targetDirection),-0.95f,0);
-        cameraPoint.transform.localPosition = new Vector3((1.25f * -targetDirection), 0f, 0f);
+        //transform.position = new Vector3(transform.position.x + (1.25f * targetDirection), transform.position.y, transform.position.z);
+        //hitbox.transform.localPosition = new Vector3((1.5f*targetDirection) - (1.25f * targetDirection),-0.95f,0);
+        //cameraPoint.transform.localPosition = new Vector3((1.25f * -targetDirection), 0f, 0f);
         hitbox.GetComponent<BoxCollider2D>().enabled = true;
 
         // Wait for the animation length
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         // Reset animation position
-        transform.position = new Vector3(transform.position.x - (1.25f * targetDirection), transform.position.y, transform.position.z);
-        hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
-        cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
+        //transform.position = new Vector3(transform.position.x - (1.25f * targetDirection), transform.position.y, transform.position.z);
+        
+        //cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
         hitbox.GetComponent<BoxCollider2D>().enabled = false;
         animator.SetBool("Attacking", false);
 
@@ -193,8 +193,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // Get sprite animator, sprite renderer and sound manager
-        animator = GetComponent<Animator>();
-        sprRenderer = GetComponent<SpriteRenderer>();
         soundManager = GetComponent<PlayerSoundManager>();
 
         // Take damage over time
