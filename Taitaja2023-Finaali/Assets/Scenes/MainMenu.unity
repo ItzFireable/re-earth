@@ -302,7 +302,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 156598036}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1628920644}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &180094228
 GameObject:
   m_ObjectHideFlags: 0
@@ -4190,7 +4202,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 440, y: 520}
+  m_SizeDelta: {x: 440, y: 560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1371744221
 Animator:
@@ -4234,7 +4246,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Character sprites:\r\npenusbmic, pixramen\r\nEnviroment\r\npenusbmic,
-    digitalmoonsSounds: \r\nfilmcow\r\nFont: \r\nmanagore\r\nUI assets:\r\nwenrexa\nMusic:\nansimuz"
+    digitalmoons\r\nSounds: \r\nfilmcow, leohpaz, yourpalrob, zzox\r\nFont: \r\nmanagore\r\nUI
+    assets:\r\nwenrexa\r\nMusic:\r\nansimuz"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}
   m_sharedMaterial: {fileID: 4666572018221640058, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}
@@ -4399,7 +4412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 450}
+  m_AnchoredPosition: {x: 0, y: 480}
   m_SizeDelta: {x: 440, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1563086640
@@ -4703,8 +4716,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: -760}
-  m_SizeDelta: {x: 2400, y: 1050}
+  m_AnchoredPosition: {x: -250, y: -790}
+  m_SizeDelta: {x: 2400, y: 1100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643591773
 MonoBehaviour:

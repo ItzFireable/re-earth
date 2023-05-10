@@ -12,8 +12,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Image fade;
     [SerializeField] AudioSource sound;
 
-    float openPos = -760f;
-    float closePos = -230f;
+    float openPos = -790f;
+    float closePos = -220f;
 
     bool menuOpen = false;
 
