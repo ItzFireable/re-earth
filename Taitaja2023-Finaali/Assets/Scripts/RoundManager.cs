@@ -26,6 +26,9 @@ public class RoundManager : MonoBehaviour
     bool spawning = false;
     [SerializeField] int enemiesForRound = 0;
 
+    [SerializeField] private GameObject cameraBoundaries;
+    private float minX, maxX;
+
     public void setKill(GameObject enemy)
     {
         for (int i = 0; i < enemies.Count; i++)
@@ -40,6 +43,15 @@ public class RoundManager : MonoBehaviour
             GameObject prefab = enemyPrefabs[UnityEngine.Random.Range(0,enemyPrefabs.Count)];
 
             Transform target = UnityEngine.Random.Range(1,3) == 1 ? targetCamera.transform.Find("Left") : targetCamera.transform.Find("Right");
+            if(maxX < target.position.x)
+            {
+                target = targetCamera.transform.Find("Left");
+            }
+            else if(minX > target.position.x)
+            {
+                target = targetCamera.transform.Find("Right");
+            }
+
             GameObject enemy = Instantiate(prefab, new Vector3(target.position.x, player.transform.position.y, 0), target.rotation);
 
             enemy.GetComponent<EnemyController>().roundManager = this;
@@ -56,6 +68,14 @@ public class RoundManager : MonoBehaviour
     {
         enemyLabel = canvas.transform.Find("EnemyText").GetComponent<TMP_Text>();
         roundLabel = canvas.transform.Find("RoundText").GetComponent<TMP_Text>();
+
+        foreach (var i in cameraBoundaries.GetComponent<PolygonCollider2D>().points)
+        {
+            if (i.x < minX) 
+                minX = i.x;
+            if (i.x > maxX)
+                maxX = i.x;
+        }
     }
     
     void Update()
