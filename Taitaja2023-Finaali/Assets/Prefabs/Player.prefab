@@ -136,12 +136,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90dd98ec635a4704db01bd848a86a482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
   hitbox: {fileID: 2842272214608477312}
   cameraPoint: {fileID: 2842272215957428868}
   rigidBody: {fileID: 2842272215113252099}
   speedMultiplier: 10
   jumpMultiplier: 5
   jumpLimit: 2
+  maxEnergy: 100
+  energyGainMultiplier: 1
+  maxEnergyMultiplier: 1
 --- !u!114 &2842272215113252123
 MonoBehaviour:
   m_ObjectHideFlags: 0
