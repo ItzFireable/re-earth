@@ -144,7 +144,9 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (isDead) return;
+        animator.SetTrigger("TakeDamage");
         energy -= amount;
+
         if(energy < 0)
         {
             energy = 0;
@@ -190,7 +192,7 @@ public class PlayerController : MonoBehaviour
             rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
 
             // Set running on animator if player is moving (TODO: Change this)
-            animator.SetBool("Running",rigidBody.velocity.x != 0);
+            animator.SetBool("Running",rigidBody.velocity.x != 0 && isGrounded);
 
             // If spacebar is pressed and player is grounded, set player's Y velocity to up direction multiplied by jump multiplier
             if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < jumpLimit))
@@ -198,6 +200,14 @@ public class PlayerController : MonoBehaviour
                 jumpCount++;
                 isGrounded = false;
                 rigidBody.velocity = Vector3.up * jumpMultiplier;
+                if (jumpCount == 1)
+                {
+                    animator.SetTrigger("Jump");
+                }
+                else
+                {
+                    animator.SetTrigger("JumpFlip");
+                }
             }
 
             // If clicked, call for attack (normal)
