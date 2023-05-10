@@ -86,7 +86,7 @@ public class ProximityManager : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        player.GetComponent<PlayerController>().GainEnergy(20);
+                        player.GetComponent<PlayerController>().GainEnergy(10);
                         StartCoroutine(ClearEnemy(nearestObject.gameObject));
 
                         Destroy(nearestObject.Find("Real Position").Find("Prompt").gameObject);
