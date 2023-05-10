@@ -84,7 +84,7 @@ public class ProximityManager : MonoBehaviour
                 {
                     nearestObject.Find("Real Position").Find("Prompt").gameObject.SetActive(true);
                     nearestObject.Find("Real Position").Find("Prompt").localScale = new Vector3(nearestObject.localScale.x < 0 ? -0.5f : 0.5f,0.5f,0.5f);
-                    nearestObject.Find("Real Position").Find("Prompt").position = new Vector3(nearestObject.position.x,nearestObject.position.y + 1,0);
+                    nearestObject.Find("Real Position").Find("Prompt").position = new Vector3(nearestObject.Find("Real Position").position.x,nearestObject.Find("Real Position").position.y + 1,0);
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
