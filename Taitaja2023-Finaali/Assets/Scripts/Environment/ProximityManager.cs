@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Script to manage player proximities (currently unused)
 public class ProximityManager : MonoBehaviour
@@ -16,6 +17,9 @@ public class ProximityManager : MonoBehaviour
     [SerializeField] bool isInRange = false;
     float nearestSqlLen = 0;
 
+    private float progress = 0;
+    private float timeToCollect = 1f;
+
     List<GameObject> clearedEnemies = new List<GameObject>();
 
     IEnumerator ClearEnemy(GameObject enemy)
@@ -30,6 +34,7 @@ public class ProximityManager : MonoBehaviour
     {
         foreach (Transform child in targetList)
         {
+
             if (clearedEnemies.Contains(child.gameObject)) continue;
 
             if (!child.transform.Find("Real Position").Find("Prompt"))
@@ -40,6 +45,12 @@ public class ProximityManager : MonoBehaviour
                 promptObject.name = "Prompt";
                 
                 promptObject.transform.parent = child.transform.Find("Real Position");
+            }
+            else{
+                if(child != nearestObject)
+                {
+                    child.transform.Find("Real Position").Find("Prompt").gameObject.SetActive(false);
+                }
             }
 
             // Get the magnitude of the child
@@ -55,7 +66,7 @@ public class ProximityManager : MonoBehaviour
                     {
                         // Get the magnitude of the nearest object
                         Vector3 nearestOffset = nearestObject.Find("Real Position").position - player.position;
-                        nearestSqlLen = offset.sqrMagnitude;
+                        nearestSqlLen = nearestOffset.sqrMagnitude;
 
                         // Compare the magnitudes and update nearestobject accordingly
                         nearestObject = sqrLen < nearestSqlLen ? child : nearestObject;
@@ -86,15 +97,24 @@ public class ProximityManager : MonoBehaviour
                     nearestObject.Find("Real Position").Find("Prompt").localScale = new Vector3(nearestObject.localScale.x < 0 ? -0.5f : 0.5f,0.5f,0.5f);
                     nearestObject.Find("Real Position").Find("Prompt").position = new Vector3(nearestObject.Find("Real Position").position.x,nearestObject.Find("Real Position").position.y + 1,0);
 
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKey(KeyCode.E))
                     {
-                        player.GetComponent<PlayerController>().GainEnergy(10);
-                        StartCoroutine(ClearEnemy(nearestObject.gameObject));
+                        progress += Time.deltaTime;
+                        if(progress >= timeToCollect)
+                        {
+                            player.GetComponent<PlayerController>().GainEnergy(10);
+                            StartCoroutine(ClearEnemy(nearestObject.gameObject));
 
-                        Destroy(nearestObject.Find("Real Position").Find("Prompt").gameObject);
+                            Destroy(nearestObject.Find("Real Position").Find("Prompt").gameObject);
 
-                        clearedEnemies.Add(nearestObject.gameObject);
-                        nearestObject = null;
+                            clearedEnemies.Add(nearestObject.gameObject);
+                            nearestObject = null;
+                            progress = 0;
+                        }
+                    }
+                    else if(Input.GetKeyUp(KeyCode.E))
+                    {
+                        progress = 0;
                     }
                 } 
             }

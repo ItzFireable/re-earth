@@ -25,11 +25,14 @@ public class RoundManager : MonoBehaviour
     [SerializeField] List<GameObject> enemies = new List<GameObject>();
 
     // Round stats
-    int curRound = 0;
+    public int curRound = 0;
     bool spawning = false;
     bool canStart = false;
 
     [SerializeField] int enemiesForRound = 0;
+
+    [SerializeField] private GameObject cameraBoundaries;
+    private float minX, maxX;
 
     public void setKill(GameObject enemy)
     {
@@ -58,6 +61,15 @@ public class RoundManager : MonoBehaviour
             GameObject prefab = enemyPrefabs[UnityEngine.Random.Range(0,enemyPrefabs.Count)];
 
             Transform target = UnityEngine.Random.Range(1,3) == 1 ? targetCamera.transform.Find("Left") : targetCamera.transform.Find("Right");
+            if(maxX < target.position.x)
+            {
+                target = targetCamera.transform.Find("Left");
+            }
+            else if(minX > target.position.x)
+            {
+                target = targetCamera.transform.Find("Right");
+            }
+
             GameObject enemy = Instantiate(prefab, new Vector3(target.position.x, player.transform.position.y, 0), target.rotation);
 
             enemy.GetComponent<EnemyController>().roundManager = this;
@@ -76,12 +88,22 @@ public class RoundManager : MonoBehaviour
         roundLabel = canvas.transform.Find("RoundText").GetComponent<TMP_Text>();
 
         StartCoroutine("FadeIn");
+        foreach (var i in cameraBoundaries.GetComponent<PolygonCollider2D>().points)
+        {
+            if (i.x < minX) 
+                minX = i.x;
+            if (i.x > maxX)
+                maxX = i.x;
+        }
     }
     
     void Update()
     {
         enemyLabel.text = "Enemies left: " + enemies.Count;
-        roundLabel.text = "Round " + curRound;
+        if(curRound > 5)
+            roundLabel.text = "Round " + 5;
+        else
+            roundLabel.text = "Round " + curRound;
 
         if (enemies.Count <= 0 && !spawning && canStart)
         {
