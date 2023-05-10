@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpLimit;
 
     // Energy variables
-    [SerializeField] private float energy = 100;
+    [SerializeField] public float energy = 100;
     [SerializeField] public float maxEnergy = 100;
 
     // Energy multipliers
