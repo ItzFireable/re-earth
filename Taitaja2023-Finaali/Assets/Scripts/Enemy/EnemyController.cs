@@ -107,10 +107,10 @@ public class EnemyController : MonoBehaviour
         
         if(type == 2)
         {
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.75f);
             GetComponent<AudioSource>().Play(0);
             attackArea.enabled = true;
-            yield return new WaitForSeconds((attackCooldownTime - 0.6f));
+            yield return new WaitForSeconds((attackCooldownTime - 0.75f));
             attackArea.enabled = false;
         }
         else
