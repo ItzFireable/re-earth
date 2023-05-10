@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     private bool isFalling = false;
     private bool isGrounded = false;
+    private bool isAttacking = false;
     private bool isOnCooldown = false;
     private float targetDirection = 1;
 
@@ -64,6 +65,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Death()
     {
+        // Freeze player, set to dead and run death animation
         isDead = true;
         rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
         animator.SetTrigger("Die");
@@ -83,6 +85,8 @@ public class PlayerController : MonoBehaviour
 
         // (Debugging) show hitbox
         hitbox.GetComponent<SpriteRenderer>().enabled = true;
+
+        // Freeze player position
         rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
 
         // Play animation and wait for it to finish
@@ -90,6 +94,9 @@ public class PlayerController : MonoBehaviour
 
         // Wait until animation starts
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0);
+
+        // Enable hitbox collision check
+        isAttacking = true;
 
         // Offset animation position
         transform.position = new Vector3(transform.position.x + (1.25f * targetDirection), transform.position.y, transform.position.z);
@@ -104,7 +111,11 @@ public class PlayerController : MonoBehaviour
         hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
         cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
 
+        // Unfreeze player position
         rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        // Disable hitbox collision check
+        isAttacking = false;
 
         // (debugging) hide hitbox, wait half a second
         hitbox.GetComponent<SpriteRenderer>().enabled = false;
@@ -134,7 +145,11 @@ public class PlayerController : MonoBehaviour
     public void GainEnergy(float amount)
     {
         if (isDead) return;
+
+        // Add energy
         energy += (amount * energyGainMultiplier);
+        
+        // Energy limit
         if(energy > maxEnergy)
         {
             energy = maxEnergy;
@@ -144,9 +159,12 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (isDead) return;
+
+        // Run take damage animation and remove energy
         animator.SetTrigger("TakeDamage");
         energy -= amount;
 
+        // Energy limit
         if(energy < 0)
         {
             energy = 0;
@@ -200,6 +218,8 @@ public class PlayerController : MonoBehaviour
                 jumpCount++;
                 isGrounded = false;
                 rigidBody.velocity = Vector3.up * jumpMultiplier;
+
+                // If first jump, play regular jump, else flip
                 if (jumpCount == 1)
                 {
                     animator.SetTrigger("Jump");
@@ -221,8 +241,6 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftControl))
                 print("block");
         }
-
-        float t = (Time.time - startTime) / 0.1f;
 
         // Update UI
         Transform EnergyBar = canvas.transform.Find("EnergyBar");
