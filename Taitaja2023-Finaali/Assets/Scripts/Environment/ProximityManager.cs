@@ -43,7 +43,7 @@ public class ProximityManager : MonoBehaviour
             }
 
             // Get the magnitude of the child
-            Vector3 offset = child.position - player.position;
+            Vector3 offset = child.Find("Real Position").position - player.position;
             float sqrLen = offset.sqrMagnitude;
 
             if (child.GetComponent<EnemyController>().isDead)
@@ -54,7 +54,7 @@ public class ProximityManager : MonoBehaviour
                     if (nearestObject.GetComponent<EnemyController>().isDead)
                     {
                         // Get the magnitude of the nearest object
-                        Vector3 nearestOffset = nearestObject.position - player.position;
+                        Vector3 nearestOffset = nearestObject.Find("Real Position").position - player.position;
                         nearestSqlLen = offset.sqrMagnitude;
 
                         // Compare the magnitudes and update nearestobject accordingly
