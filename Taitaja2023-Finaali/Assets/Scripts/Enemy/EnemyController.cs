@@ -53,7 +53,8 @@ public class EnemyController : MonoBehaviour
         }
         else if(Mathf.Abs(difference) > attackDistance && !attacking)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            Vector3 playerPos = new Vector3(player.transform.position.x, transform.position.y, 0);
+            transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
             animator.SetBool("Running", true);
         }
         if(attackCooldown > 0)
@@ -108,6 +109,9 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col.gameObject.name + " : " + Time.time);
+        if(col.gameObject.tag == "Player")
+        {
+            print("Hit player");
+        }
     }
 }
