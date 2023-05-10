@@ -45,10 +45,9 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         difference = realPosition.transform.position.x - player.transform.position.x;
-        // Update facing direction
-        FaceToPlayer();
-
+        
         if(player.GetComponent<PlayerController>().energy > 0 && !isDead){
+            FaceToPlayer();
             if(Mathf.Abs(difference) < attackDistance && !attacking)
             {
                 animator.SetBool("Running", false);
@@ -126,7 +125,6 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        print(col.gameObject.tag);
         if(col.gameObject.tag == "Player" && !hasAttacked && attacking)
         {
             hasAttacked = true;

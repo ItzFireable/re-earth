@@ -85,9 +85,6 @@ public class PlayerController : MonoBehaviour
         isOnCooldown = true;
         soundManager.PlaySound("Attack",anim);
 
-        // (Debugging) show hitbox
-        hitbox.GetComponent<SpriteRenderer>().enabled = true;
-
         // Freeze player position
         rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
 
@@ -104,6 +101,7 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(transform.position.x + (1.25f * targetDirection), transform.position.y, transform.position.z);
         hitbox.transform.localPosition = new Vector3((1.5f*targetDirection) - (1.25f * targetDirection),-0.95f,0);
         cameraPoint.transform.localPosition = new Vector3((1.25f * -targetDirection), 0f, 0f);
+        hitbox.GetComponent<BoxCollider2D>().enabled = true;
 
         // Wait for the animation length
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
@@ -112,6 +110,7 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(transform.position.x - (1.25f * targetDirection), transform.position.y, transform.position.z);
         hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
         cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
+        hitbox.GetComponent<BoxCollider2D>().enabled = false;
 
         // Unfreeze player position
         rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -120,7 +119,6 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
 
         // (debugging) hide hitbox, wait half a second
-        hitbox.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(0.5f);
 
         // Disable cooldown
@@ -293,10 +291,14 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        print(col.gameObject.tag);
-        if(col.gameObject.tag == "Enemy" && isAttacking)
+        if(col.gameObject.tag == "Enemy")
         {
             col.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(hitbox.transform.position, new Vector3(2, 0.5f, 1));
     }
 }
