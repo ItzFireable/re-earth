@@ -106,19 +106,12 @@ public class PlayerController : MonoBehaviour
         // Enable hitbox collision check
         isAttacking = true;
         hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
-        // Offset animation position
-        //transform.position = new Vector3(transform.position.x + (1.25f * targetDirection), transform.position.y, transform.position.z);
-        //hitbox.transform.localPosition = new Vector3((1.5f*targetDirection) - (1.25f * targetDirection),-0.95f,0);
-        //cameraPoint.transform.localPosition = new Vector3((1.25f * -targetDirection), 0f, 0f);
+
         hitbox.GetComponent<BoxCollider2D>().enabled = true;
 
         // Wait for the animation length
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // Reset animation position
-        //transform.position = new Vector3(transform.position.x - (1.25f * targetDirection), transform.position.y, transform.position.z);
-        
-        //cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
         hitbox.GetComponent<BoxCollider2D>().enabled = false;
         animator.SetBool("Attacking", false);
 
