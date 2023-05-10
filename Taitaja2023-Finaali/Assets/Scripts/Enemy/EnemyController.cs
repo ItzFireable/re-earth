@@ -104,9 +104,11 @@ public class EnemyController : MonoBehaviour
     {
         attacking = true;
         animator.SetTrigger("Attack1");
+        
         if(type == 2)
         {
             yield return new WaitForSeconds(0.6f);
+            GetComponent<AudioSource>().Play(0);
             attackArea.enabled = true;
             yield return new WaitForSeconds((attackCooldownTime - 0.6f));
             attackArea.enabled = false;
@@ -114,6 +116,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             yield return new WaitForSeconds(0.25f);
+            GetComponent<AudioSource>().Play(0);
             attackArea.enabled = true;
             yield return new WaitForSeconds((attackCooldownTime - 0.25f));
             attackArea.enabled = false;

@@ -1,9 +1,9 @@
-Characters
+Characters:
 https://pixramen.itch.io/2d-action-platformer-sci-fi-vagabond
 https://penusbmic.itch.io/sci-fi-character-pack-7
 https://penusbmic.itch.io/sci-fi-character-pack-11
 
-Enviroment
+Environment:
 https://penusbmic.itch.io/sci-fi-dystopian-tileset
 https://digitalmoons.itch.io/pixel-skies-demo
 
@@ -12,6 +12,7 @@ https://github.com/KimiJok1/Taitaja-2023-Peliprojekti
 
 Sounds: 
 https://filmcow.itch.io/filmcow-sfx
+https://leohpaz.itch.io/minifantasy-dungeon-sfx-pack
 
 Font:
 https://managore.itch.io/m5x7   
