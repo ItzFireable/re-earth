@@ -14,13 +14,15 @@ public class RoundManager : MonoBehaviour
     // UI
     [SerializeField] Canvas canvas;
     TMP_Text enemyLabel;
+    TMP_Text roundLabel;
 
     // Prefabs for enemies
     [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
     [SerializeField] List<GameObject> enemies = new List<GameObject>();
 
     // Round stats
-    int enemiesLeft = 0;
+    int curRound = 0;
+    bool spawning = false;
     [SerializeField] int enemiesForRound = 0;
 
     IEnumerator StartRound()
@@ -35,19 +37,35 @@ public class RoundManager : MonoBehaviour
             enemy.transform.parent = parent.transform;
             enemies.Add(enemy);
 
-            enemiesLeft += 1;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
+
+        spawning = false;
     }
 
     void Start()
     {
         enemyLabel = canvas.transform.Find("EnemyText").GetComponent<TMP_Text>();
-        StartCoroutine("StartRound");
+        roundLabel = canvas.transform.Find("RoundText").GetComponent<TMP_Text>();
     }
     
     void Update()
     {
-        enemyLabel.text = "Enemies left: " + enemiesLeft;
+        enemyLabel.text = "Enemies left: " + enemies.Count;
+        roundLabel.text = "Round " + curRound;
+
+        if (enemies.Count <= 0 && !spawning)
+        {
+            spawning = true;
+            curRound += 1;
+
+            if (curRound > 1)
+                enemiesForRound += 1;
+
+            if (curRound == 5)
+                print("boss");
+            else
+                StartCoroutine("StartRound");
+        }
     }
 }
