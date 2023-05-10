@@ -139,9 +139,6 @@ public class PlayerController : MonoBehaviour
             case "Normal":
                 StartCoroutine("Attack");
                 break;
-            case "Heavy":
-                // StartCoroutine("HeavyAttack");
-                break;
         }
     }
 
@@ -242,10 +239,6 @@ public class PlayerController : MonoBehaviour
             // If clicked, call for attack (normal)
             if (Input.GetMouseButtonDown(0))
                 CheckAttack("Normal");
-
-            // If right clicked, call for attack (heavy)
-            if (Input.GetMouseButtonDown(1))
-                CheckAttack("Heavy");
 
             if (Input.GetKeyDown(KeyCode.LeftControl))
                 print("block");
