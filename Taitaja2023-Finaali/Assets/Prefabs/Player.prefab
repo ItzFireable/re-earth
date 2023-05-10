@@ -140,9 +140,10 @@ MonoBehaviour:
   hitbox: {fileID: 2842272214608477312}
   cameraPoint: {fileID: 2842272215957428868}
   rigidBody: {fileID: 2842272215113252099}
-  speedMultiplier: 10
-  jumpMultiplier: 5
+  speedMultiplier: 7
+  jumpMultiplier: 8
   jumpLimit: 2
+  energy: 100
   maxEnergy: 100
   energyGainMultiplier: 1
   maxEnergyMultiplier: 1
@@ -255,7 +256,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 0f60431455031e145828047685f6f712, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 0

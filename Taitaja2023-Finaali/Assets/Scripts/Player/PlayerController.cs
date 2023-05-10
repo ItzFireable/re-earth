@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Death()
     {
         isDead = true;
-        rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
         animator.SetTrigger("Die");
 
         yield return new WaitForSeconds(3);
@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
 
         // (Debugging) show hitbox
         hitbox.GetComponent<SpriteRenderer>().enabled = true;
+        rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
 
         // Play animation and wait for it to finish
         animator.SetTrigger("Attack" + anim);
@@ -102,6 +103,8 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(transform.position.x - (1.25f * targetDirection), transform.position.y, transform.position.z);
         hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
         cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
+
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         // (debugging) hide hitbox, wait half a second
         hitbox.GetComponent<SpriteRenderer>().enabled = false;
