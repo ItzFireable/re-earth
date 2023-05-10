@@ -20,6 +20,8 @@ public class ProximityManager : MonoBehaviour
 
     IEnumerator ClearEnemy(GameObject enemy)
     {
+        enemy.GetComponent<Animator>().SetTrigger("Death2");
+
         yield return new WaitForSeconds(10f);
         Destroy(enemy);
     }

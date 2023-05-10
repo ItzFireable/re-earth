@@ -127,7 +127,7 @@ public class EnemyController : MonoBehaviour
         if(col.gameObject.tag == "Player" && !hasAttacked && attacking)
         {
             hasAttacked = true;
-            col.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+            col.gameObject.GetComponent<PlayerController>().TakeDamage(damage,true);
         }
     }
 
@@ -138,7 +138,7 @@ public class EnemyController : MonoBehaviour
         health -= amount;
         if(health <= 0)
         {
-            animator.SetTrigger("Die");
+            animator.SetTrigger("Death");
             isDead = true;
             
             roundManager.setKill(gameObject);
