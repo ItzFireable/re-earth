@@ -11,6 +11,7 @@ public class ProximityManager : MonoBehaviour
     [SerializeField] Transform player;
     [SerializeField] GameObject prompt;
     [SerializeField] Transform targetList;
+    [SerializeField] AudioSource collectSource;
 
     // Values for nearest target
     [SerializeField] Transform nearestObject;
@@ -110,6 +111,8 @@ public class ProximityManager : MonoBehaviour
                             clearedEnemies.Add(nearestObject.gameObject);
                             nearestObject = null;
                             progress = 0;
+
+                            collectSource.Play(0);
                         }
                     }
                     else if(Input.GetKeyUp(KeyCode.E))
