@@ -137,6 +137,12 @@ public class PlayerController : MonoBehaviour
         energy += (amount * energyGainMultiplier);
     }
 
+    public void TakeDamage(float amount)
+    {
+        if (isDead) return;
+        energy -= amount;
+    }
+
     void DamageOverTime()
     {
         energy -= .5f;
