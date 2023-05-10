@@ -135,12 +135,20 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
         energy += (amount * energyGainMultiplier);
+        if(energy > maxEnergy)
+        {
+            energy = maxEnergy;
+        }
     }
 
     public void TakeDamage(float amount)
     {
         if (isDead) return;
         energy -= amount;
+        if(energy < 0)
+        {
+            energy = 0;
+        }
     }
 
     void DamageOverTime()
