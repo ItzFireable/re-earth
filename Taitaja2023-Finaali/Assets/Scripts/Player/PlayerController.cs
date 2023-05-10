@@ -41,11 +41,12 @@ public class PlayerController : MonoBehaviour
     private float targetDirection = 1;
 
     private bool dashing = false;
-    private float dashDistance = 2f;
-    private float dashSpeed = 10f;
-    [SerializeField] private GameObject cameraBoundaries;
-    public float minX, maxX;
+    [SerializeField] private float dashDistance = 2f;
+    [SerializeField] private float dashSpeed = 10f;
+
     Vector2 dashPoint;
+    public float minX, maxX;
+    [SerializeField] private GameObject cameraBoundaries;
 
     // Objects for player
     private Animator animator;
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     // Start time
     float startTime;
 
-    private float damage = 1f;
+    [SerializeField] private float damage = 1f;
 
     // Unused function to get animation length of any animation from the controller. Will probably be used someday.
     float GetAnimationLength(string name)
@@ -165,12 +166,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, bool playAnim)
     {
         if (isDead || dashing) return;
 
         // Run take damage animation and remove energy
-        animator.SetTrigger("TakeDamage");
+        if (playAnim)
+        {
+            animator.SetTrigger("TakeDamage");
+        }
+
         energy -= amount;
 
         // Energy limit
