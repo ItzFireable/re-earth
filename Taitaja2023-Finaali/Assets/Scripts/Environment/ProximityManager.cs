@@ -8,7 +8,7 @@ public class ProximityManager : MonoBehaviour
     // Properties for distance, player and target list
     [SerializeField] float distance;
     [SerializeField] Transform player;
-    [SerializeField] Transform[] targetList;
+    [SerializeField] Transform targetList;
 
     // Values for nearest target
     [SerializeField] Transform nearestObject;

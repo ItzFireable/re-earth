@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpLimit;
 
     // Energy variables
-    [SerializeField] private float energy = 100;
+    [SerializeField] public float energy = 100;
     [SerializeField] public float maxEnergy = 100;
 
     // Energy multipliers
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         // Freeze player, set to dead and run death animation
         isDead = true;
-        rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
+        rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         animator.SetTrigger("Die");
 
         yield return new WaitForSeconds(3);
