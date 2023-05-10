@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
     // Start time
     float startTime;
 
+    private float damage = 1f;
+
     // Unused function to get animation length of any animation from the controller. Will probably be used someday.
     float GetAnimationLength(string name)
     {
@@ -286,6 +288,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground")) 
         {
             isGrounded = false;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        print(col.gameObject.tag);
+        if(col.gameObject.tag == "Enemy" && isAttacking)
+        {
+            col.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
         }
     }
 }
