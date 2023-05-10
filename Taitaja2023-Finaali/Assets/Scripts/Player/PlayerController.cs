@@ -223,6 +223,8 @@ public class PlayerController : MonoBehaviour
         // Check player health
         if (System.Math.Round(energy,0) <= 0)
         {
+            energy = 0;
+            if (isDead) return;
             StartCoroutine("Death");
         }
     }
