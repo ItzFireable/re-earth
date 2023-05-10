@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
 
     // Health properties
     [SerializeField] private float maxHealth = 5f;
-    private float health;
+    [SerializeField] private float health;
     private bool isDead = false;
     private bool wasCollected;
 
