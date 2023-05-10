@@ -71,8 +71,8 @@ public class RoundManager : MonoBehaviour
             if (curRound > 1)
                 enemiesForRound += 1;
 
-            if (curRound == 5)
-                print("boss");
+            if (curRound > 5)
+                print("end game");
             else
                 StartCoroutine("StartRound");
         }

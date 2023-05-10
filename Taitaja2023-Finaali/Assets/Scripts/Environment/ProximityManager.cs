@@ -16,10 +16,20 @@ public class ProximityManager : MonoBehaviour
     [SerializeField] bool isInRange = false;
     float nearestSqlLen = 0;
 
+    List<GameObject> clearedEnemies = new List<GameObject>();
+
+    IEnumerator ClearEnemy(GameObject enemy)
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(enemy);
+    }
+
     void Update()
     {
         foreach (Transform child in targetList)
         {
+            if (clearedEnemies.Contains(child.gameObject)) continue;
+
             if (!child.transform.Find("Real Position").Find("Prompt"))
             {
                 GameObject promptObject = Instantiate(prompt);
@@ -68,11 +78,22 @@ public class ProximityManager : MonoBehaviour
         {
             if (isInRange)
             {
-                if (nearestObject.GetComponent<EnemyController>().isDead && nearestObject.transform.Find("Real Position").Find("Prompt"))
+                if (nearestObject.GetComponent<EnemyController>().isDead && nearestObject.Find("Real Position").Find("Prompt"))
                 {
-                    nearestObject.transform.Find("Real Position").Find("Prompt").gameObject.SetActive(true);
-                    nearestObject.transform.Find("Real Position").Find("Prompt").localScale = new Vector3(nearestObject.transform.localScale.x < 0 ? -0.5f : 0.5f,0.5f,0.5f);
-                    nearestObject.transform.Find("Real Position").Find("Prompt").position = new Vector3(nearestObject.transform.position.x,nearestObject.transform.position.y + 1,0);
+                    nearestObject.Find("Real Position").Find("Prompt").gameObject.SetActive(true);
+                    nearestObject.Find("Real Position").Find("Prompt").localScale = new Vector3(nearestObject.localScale.x < 0 ? -0.5f : 0.5f,0.5f,0.5f);
+                    nearestObject.Find("Real Position").Find("Prompt").position = new Vector3(nearestObject.position.x,nearestObject.position.y + 1,0);
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        player.GetComponent<PlayerController>().GainEnergy(10);
+                        StartCoroutine(ClearEnemy(nearestObject.gameObject));
+
+                        Destroy(nearestObject.Find("Real Position").Find("Prompt").gameObject);
+
+                        clearedEnemies.Add(nearestObject.gameObject);
+                        nearestObject = null;
+                    }
                 } 
             }
             else

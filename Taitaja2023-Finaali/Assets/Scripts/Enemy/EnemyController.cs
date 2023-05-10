@@ -142,7 +142,6 @@ public class EnemyController : MonoBehaviour
             isDead = true;
             
             roundManager.setKill(gameObject);
-            player.GetComponent<PlayerController>().GainEnergy(20);
         }
         else
         {
