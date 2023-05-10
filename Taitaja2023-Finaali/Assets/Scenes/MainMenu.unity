@@ -373,7 +373,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game name here
+  m_text: Re-Earth
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}
   m_sharedMaterial: {fileID: 4666572018221640058, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}
@@ -4733,7 +4733,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1315550456}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1628920644}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: ToggleControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1315550456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5172,6 +5184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 674001831}
   credits: {fileID: 1643591771}
+  controls: {fileID: 1751743626}
   fade: {fileID: 436697509}
   sound: {fileID: 1628920646}
 --- !u!4 &1628920645
@@ -5825,7 +5838,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1628920644}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: Close
+        m_MethodName: ToggleControls
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5950,7 +5963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1751743627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6091,13 +6104,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'What to do
+  m_text: 'What to do:
 
-    -Complete 5 waves of enemies
+    - Complete 5 waves of enemies.
 
-    -Find the last tree
+    - Find the last tree.
 
-    Energy
+
+    Energy:
 
     You
     lose some of your energy every second. You can collect energy from dead enemies

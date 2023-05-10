@@ -9,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] Canvas menu;
     [SerializeField] GameObject credits;
+    [SerializeField] GameObject controls;
     [SerializeField] Image fade;
     [SerializeField] AudioSource sound;
 
@@ -16,6 +17,7 @@ public class MainMenuManager : MonoBehaviour
     float closePos = -220f;
 
     bool menuOpen = false;
+    bool controlsOpen = false;
 
     void ToggleCredits()
     {
@@ -24,6 +26,13 @@ public class MainMenuManager : MonoBehaviour
         RectTransform rect = credits.GetComponent<RectTransform>();
         rect.localPosition = new Vector2(rect.localPosition.x,menuOpen ? closePos : openPos);
         credits.transform.Find("Button").Find("Label").localScale = new Vector3(4.5f,menuOpen ? 1.25f : -1.25f,1);
+    }
+
+    public void ToggleControls()
+    {
+        controlsOpen = !controlsOpen;
+
+        controls.SetActive(controlsOpen);
     }
 
     public void Transition()
