@@ -14,9 +14,9 @@ public class EnemyController : MonoBehaviour
 
     // Health properties
     [SerializeField] private float maxHealth = 5f;
-    private float health;
-    private bool isDead = false;
-    private bool wasCollected;
+    [SerializeField] private float health;
+    public bool isDead = false;
+    public bool wasCollected = false;
 
     // Facing direction
     [SerializeField] private bool facing;
@@ -45,10 +45,9 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         difference = realPosition.transform.position.x - player.transform.position.x;
-        // Update facing direction
-        FaceToPlayer();
-
+        
         if(player.GetComponent<PlayerController>().energy > 0 && !isDead){
+            FaceToPlayer();
             if(Mathf.Abs(difference) < attackDistance && !attacking)
             {
                 animator.SetBool("Running", false);
@@ -64,9 +63,6 @@ public class EnemyController : MonoBehaviour
         else{
             animator.SetBool("Running", false);
         }
-
-        if(Input.GetKeyDown(KeyCode.Q))
-            TakeDamage(1f);
     }
 
     void OnDrawGizmosSelected()
@@ -126,7 +122,6 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        print(col.gameObject.tag);
         if(col.gameObject.tag == "Player" && !hasAttacked && attacking)
         {
             hasAttacked = true;

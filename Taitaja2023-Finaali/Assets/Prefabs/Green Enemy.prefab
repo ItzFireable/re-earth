@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 19258359334761566}
   m_Layer: 3
   m_Name: Green Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
   animator: {fileID: 19258359334761537}
   realPosition: {fileID: 19258358767986832}
   maxHealth: 4
+  health: 0
   facing: 0
   speed: 1.5
   attackDistance: 2
