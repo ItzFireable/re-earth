@@ -23,11 +23,11 @@ public class RoundManager : MonoBehaviour
     int enemiesLeft = 0;
     [SerializeField] int enemiesForRound = 0;
 
-    void StartRound()
+    IEnumerator StartRound()
     {
         for (int i = 0; i < enemiesForRound; i++)
         {
-            GameObject prefab = enemyPrefabs[UnityEngine.Random.Range(1,enemyPrefabs.Count)];
+            GameObject prefab = enemyPrefabs[UnityEngine.Random.Range(0,enemyPrefabs.Count)];
 
             Transform target = UnityEngine.Random.Range(1,3) == 1 ? targetCamera.transform.Find("Left") : targetCamera.transform.Find("Right");
             GameObject enemy = Instantiate(prefab, target.position, target.rotation);
@@ -36,13 +36,14 @@ public class RoundManager : MonoBehaviour
             enemies.Add(enemy);
 
             enemiesLeft += 1;
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
     void Start()
     {
         enemyLabel = canvas.transform.Find("EnemyText").GetComponent<TMP_Text>();
-        StartRound();
+        StartCoroutine("StartRound");
     }
     
     void Update()
