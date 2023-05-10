@@ -40,6 +40,13 @@ public class PlayerController : MonoBehaviour
     private bool isOnCooldown = false;
     private float targetDirection = 1;
 
+    private bool dashing = false;
+    private float dashDistance = 2f;
+    private float dashSpeed = 10f;
+    [SerializeField] private GameObject cameraBoundaries;
+    public float minX, maxX;
+    Vector2 dashPoint;
+
     // Objects for player
     private Animator animator;
     private SpriteRenderer sprRenderer;
@@ -90,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
         // Play animation and wait for it to finish
         animator.SetTrigger("Attack" + anim);
+        
 
         // Wait until animation starts
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0);
@@ -111,6 +119,7 @@ public class PlayerController : MonoBehaviour
         hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
         cameraPoint.transform.localPosition = new Vector3(0, 0f, 0f);
         hitbox.GetComponent<BoxCollider2D>().enabled = false;
+        animator.SetBool("Attacking", false);
 
         // Unfreeze player position
         rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -158,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (isDead) return;
+        if (isDead || dashing) return;
 
         // Run take damage animation and remove energy
         animator.SetTrigger("TakeDamage");
@@ -188,6 +197,16 @@ public class PlayerController : MonoBehaviour
 
         // Get start time
         startTime = Time.time;
+
+        // Compare the points
+        foreach (var i in cameraBoundaries.GetComponent<PolygonCollider2D>().points)
+        {
+            if (i.x < minX) 
+                minX = i.x;
+            if (i.x > maxX)
+                maxX = i.x;
+        }
+            
     }
 
     void Update()
@@ -197,7 +216,7 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         // Run these if player isn't dead
-        if (!isDead)
+        if (!isDead && !dashing)
         {
             if (horizontalInput != 0)
             {
@@ -207,29 +226,17 @@ public class PlayerController : MonoBehaviour
             }
 
             // Set RigibBodys velocity based on input and speed multiplier
-            rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
+            if(!isAttacking)
+                rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
 
             // Set running on animator if player is moving (TODO: Change this)
-            animator.SetBool("Running",rigidBody.velocity.x != 0 && isGrounded);
+            animator.SetBool("Running",rigidBody.velocity.x != 0 && !isAttacking);
 
-            // If spacebar is pressed and player is grounded, set player's Y velocity to up direction multiplied by jump multiplier
-            if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < jumpLimit))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                jumpCount++;
-                isGrounded = false;
-                rigidBody.velocity = Vector3.up * jumpMultiplier;
-
-                // If first jump, play regular jump, else flip
-                if (jumpCount == 1)
-                {
-                    animator.SetTrigger("Jump");
-                }
-                else
-                {
-                    animator.SetTrigger("JumpFlip");
-                }
+                Dash();
             }
-
+            
             // If clicked, call for attack (normal)
             if (Input.GetMouseButtonDown(0))
                 CheckAttack("Normal");
@@ -240,6 +247,14 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftControl))
                 print("block");
+        }
+        else if(dashing && !isDead)
+        {
+            Vector2 playerPos = new Vector2(transform.position.x, transform.position.y);
+            if(playerPos != dashPoint)
+                transform.position = Vector2.MoveTowards(transform.position, dashPoint, dashSpeed * Time.deltaTime);
+            else
+                dashing = false;
         }
 
         // Update UI
@@ -254,6 +269,22 @@ public class PlayerController : MonoBehaviour
             energy = 0;
             if (isDead) return;
             StartCoroutine("Death");
+        }
+    }
+
+    void Dash()
+    {
+        dashing = true;
+        animator.SetTrigger("Dash");
+        if((transform.position.x + (dashDistance * targetDirection)) < maxX && (transform.position.x + (dashDistance * targetDirection)) > minX)
+        {
+            dashPoint = new Vector2(transform.position.x + dashDistance * targetDirection, transform.position.y);
+        }
+        else if((transform.position.x + (dashDistance * targetDirection)) > maxX){
+            dashPoint = new Vector2(maxX - 0.5f, transform.position.y);
+        }
+        else if((transform.position.x + (dashDistance * targetDirection)) < minX){
+            dashPoint = new Vector2(minX + 0.5f, transform.position.y);
         }
     }
 

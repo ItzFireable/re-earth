@@ -48,7 +48,8 @@ public class EnemyController : MonoBehaviour
         difference = realPosition.transform.position.x - player.transform.position.x;
         
         if(player.GetComponent<PlayerController>().energy > 0 && !isDead){
-            FaceToPlayer();
+            if(!attacking)
+                FaceToPlayer();
             if(Mathf.Abs(difference) < attackDistance && !attacking)
             {
                 animator.SetBool("Running", false);
@@ -105,9 +106,9 @@ public class EnemyController : MonoBehaviour
         animator.SetTrigger("Attack1");
         if(type == 2)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.6f);
             attackArea.enabled = true;
-            yield return new WaitForSeconds((attackCooldownTime - 0.5f));
+            yield return new WaitForSeconds((attackCooldownTime - 0.6f));
             attackArea.enabled = false;
         }
         else
