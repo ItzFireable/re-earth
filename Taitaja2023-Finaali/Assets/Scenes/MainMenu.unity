@@ -4267,8 +4267,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Movement: \nWASD / Arrow keys\nDash: Space\nMelee: Mouse 1\nPause: Esc\nInteract:
-    E"
+  m_text: "Movement: \nA, D / Left-, Right Arrow\nDash: Space\nMelee: Mouse 1\nPause:
+    Esc\nInteract: E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}
   m_sharedMaterial: {fileID: 4666572018221640058, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}
