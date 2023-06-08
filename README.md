@@ -1,3 +1,5 @@
+[![Unity](https://github.com/ItzFireable/re-earth/actions/workflows/unity.yml/badge.svg)](https://github.com/ItzFireable/re-earth/actions/workflows/unity.yml)
+
 # Re-Earth
 ## A project made for Taitaja 2023
 Insert information here
