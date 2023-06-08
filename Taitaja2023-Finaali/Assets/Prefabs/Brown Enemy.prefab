@@ -107,7 +107,7 @@ MonoBehaviour:
   player: {fileID: 0}
   realPosition: {fileID: 8931499170328739720}
   roundManager: {fileID: 0}
-  maxHealth: 5
+  maxHealth: 4
   health: 0
   isDead: 0
   wasCollected: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   attackArea: {fileID: 8931499171743473195}
   attacking: 0
   attackCooldownTime: 1
-  damage: 10
+  damage: 7
   type: 1
 --- !u!95 &8931499170106107063
 Animator:
