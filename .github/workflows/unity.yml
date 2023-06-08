@@ -8,12 +8,12 @@ on:
 
 jobs:
   build:
-    name: Build for WebGL (i think!)
+    name: Build for WebGL
     runs-on: windows-latest
     strategy:
       matrix:
         projectPath: 
-          - "Project"
+          - ./Project
     defaults:
       run:
         shell: msys2 {0}
