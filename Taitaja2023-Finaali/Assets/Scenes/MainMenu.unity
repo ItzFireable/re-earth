@@ -5436,7 +5436,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Made by Kimi and Matias
+  m_text: Made by Fireable and matjaa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}
   m_sharedMaterial: {fileID: 4666572018221640058, guid: a588207fe6d5dc042bba811a8fce31af, type: 2}

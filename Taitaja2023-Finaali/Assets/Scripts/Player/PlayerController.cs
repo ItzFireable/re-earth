@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 
@@ -81,6 +82,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Die");
 
         yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Used for managing attacks
@@ -178,7 +180,7 @@ public class PlayerController : MonoBehaviour
 
     void DamageOverTime()
     {
-        energy -= .5f;
+        energy -= 2f;
     }
 
     void Start()

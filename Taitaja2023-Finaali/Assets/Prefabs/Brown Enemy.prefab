@@ -117,7 +117,7 @@ MonoBehaviour:
   attackArea: {fileID: 8931499171743473195}
   attacking: 0
   attackCooldownTime: 1
-  damage: 3
+  damage: 10
   type: 1
 --- !u!95 &8931499170106107063
 Animator:
