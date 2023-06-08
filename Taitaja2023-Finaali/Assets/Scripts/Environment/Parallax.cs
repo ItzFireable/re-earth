@@ -8,6 +8,7 @@ public class Parallax : MonoBehaviour
     [SerializeField] private GameObject sky;
     [SerializeField] private Camera targetCamera;
     [SerializeField] private float parallaxValue;
+    
 
     // Start position for parallax effect
     private Vector3 startPosition;
