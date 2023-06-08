@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour
 
     void DamageOverTime()
     {
-        energy -= 2f;
+        energy -= 0.5f;
     }
 
     void Start()
@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
         soundManager = GetComponent<PlayerSoundManager>();
 
         // Take damage over time
-        InvokeRepeating("DamageOverTime", 1f, 1f);
+        InvokeRepeating("DamageOverTime", 1f, 0.5f);
 
         // Get start time
         startTime = Time.time;

@@ -107,7 +107,7 @@ MonoBehaviour:
   player: {fileID: 0}
   realPosition: {fileID: 8931499170328739720}
   roundManager: {fileID: 0}
-  maxHealth: 2
+  maxHealth: 5
   health: 0
   isDead: 0
   wasCollected: 0
