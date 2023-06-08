@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         projectPath: 
-          - Project
+          - "Project"
     defaults:
       run:
         shell: msys2 {0}
