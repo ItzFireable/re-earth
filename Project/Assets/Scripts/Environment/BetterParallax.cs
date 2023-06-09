@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BetterParallax : MonoBehaviour
 {
-    private float length, startpos;
+    private float length, startpos, timeElapsed;
     [SerializeField] private  Transform cam;
     [SerializeField] private float parallexEffect;
     [SerializeField] private float speedMultiplier;
@@ -16,9 +16,10 @@ public class BetterParallax : MonoBehaviour
     }
     void Update()
     {
-
-        float temp = (cam.position.x * (1 - parallexEffect));
-        float dist = (cam.position.x * parallexEffect);
+        timeElapsed += speedMultiplier * Time.deltaTime;
+        float temp = (cam.position.x * (1 - parallexEffect)) - timeElapsed;
+        float dist = (cam.position.x * parallexEffect) + timeElapsed;
+        // transform.position += new Vector3(speedMultiplier * Time.deltaTime + startpos + dist, 0, 0);
         transform.position = new Vector3(startpos + dist, transform.position.y, transform.position.z);
 
         if (temp > startpos + length) startpos += length;
