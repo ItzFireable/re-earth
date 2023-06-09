@@ -12,32 +12,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        targetPlatform: 
+          - WebGL
         projectPath: 
-          - ./Project
+          - Project
     defaults:
       run:
         shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v2
-        with:
+     - uses: actions/checkout@v2
+       with:
           fetch-depth: 0
           lfs: true
-      - name: Unity - Builder
-        uses: game-ci/unity-builder@v2.2.0
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          customImage: mobsakai/unity3d:2022.3.0f1-webgl
-          projectPath: ${{ matrix.projectPath }}
-          targetPlatform: WebGL
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Build
-          path: build
-      - uses: actions/cache@v2
-        with:
+
+     - uses: actions/cache@v2
+       with:
           path: ${{ matrix.projectPath }}/Library
           key:
             Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{
@@ -46,3 +35,19 @@ jobs:
             Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-
             Library-${{ matrix.projectPath }}-
             Library-
+            
+     - name: Unity - Builder
+       uses: game-ci/unity-builder@v2.2.0
+       env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+       with:
+          customImage: mobsakai/unity3d:2022.3.0f1-webgl
+          projectPath: ${{ matrix.projectPath }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+          
+     - uses: actions/upload-artifact@v2
+       with:
+          name: Build
+          path: build
