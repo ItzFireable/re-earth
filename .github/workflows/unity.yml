@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        targetPlatform: 
+          - WebGL
         projectPath: 
           - Project
     defaults:
@@ -43,7 +45,7 @@ jobs:
        with:
           customImage: mobsakai/unity3d:2022.3.0f1-webgl
           projectPath: ${{ matrix.projectPath }}
-          targetPlatform: WebGL
+          targetPlatform: ${{ matrix.targetPlatform }}
           
      - uses: actions/upload-artifact@v2
        with:
