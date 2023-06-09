@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
         soundManager.StopSound("Run");
         rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         animator.SetTrigger("Die");
+        ToggleDust(false);
 
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene("MainMenu");
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
         // Enable cooldown, play sound
         isOnCooldown = true;
-        soundManager.PlaySound("Attack",anim);
+        soundManager.PlayOneShot("Attack",anim);
 
         // Freeze player position
         rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
@@ -237,13 +238,13 @@ public class PlayerController : MonoBehaviour
             else 
                 soundManager.StopSound("Run");
 
-            var emission = dust.emission;
-            if(rigidBody.velocity.x != 0 && !isAttacking && !emission.enabled && isGrounded){
-                emission.enabled = true;
-                }
-            else if(rigidBody.velocity.x == 0 || isAttacking || !isGrounded) {
-                emission.enabled = false;
-                }
+
+            // Run dust particle system if player is moving
+            if(rigidBody.velocity.x != 0 && !isAttacking && isGrounded)
+                ToggleDust(true);
+            else if(rigidBody.velocity.x == 0 || isAttacking || !isGrounded) 
+                ToggleDust(false);
+                
                 
 
             // Set running on animator if player is moving (TODO: Change this)
@@ -284,6 +285,13 @@ public class PlayerController : MonoBehaviour
             if (isDead) return;
             StartCoroutine("Death");
         }
+    }
+
+    void ToggleDust(bool toggle){
+        var emission = dust.emission;
+
+        if(emission.enabled != toggle)
+            emission.enabled = toggle;
     }
 
     void Jump()

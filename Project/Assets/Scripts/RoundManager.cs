@@ -15,7 +15,7 @@ public class RoundManager : MonoBehaviour
     // UI
     [SerializeField] AudioSource sound;
     [SerializeField] Canvas canvas;
-    [SerializeField] Image fade;
+    [SerializeField] CanvasGroup fade;
 
     TMP_Text enemyLabel;
     TMP_Text roundLabel;
@@ -45,7 +45,7 @@ public class RoundManager : MonoBehaviour
     {
         for (float i = 0; i <= 1; i += Time.deltaTime)
         {
-            fade.color = new Color(0, 0, 0, 1 - i);
+            fade.alpha = 1 - i;
             sound.volume = 0f + (i/10);
             yield return null;
         }

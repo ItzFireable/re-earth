@@ -54,11 +54,38 @@ public class PlayerSoundManager : MonoBehaviour
 
     }
 
+    public void PlayOneShot(string type, int? num = 0) 
+    {
+
+        // Set loopable to false and switch types, and get the correct audio for each type
+        source.volume = 1f;
+        
+        switch(type)
+        {
+            case "Attack":
+                AudioClip sound = attackSounds[((int) num) - 1];
+                source.PlayOneShot(sound);
+
+                break;
+            case "HeavyAttack":
+                source.clip = heavyAttackSound;
+                break;
+            case "Dash":
+                source.clip = dashSound;
+                source.volume = 0.5f;
+                break;
+            case "Damage":
+                source.clip = damageSound;
+                source.volume = 0.5f;
+                break;
+        }
+    }
+
     public void StopSound(string type)
     {
         if (curSound == type)
         {
-            source.Stop();
+            source.loop = false;
             curSound = "";
         }
     }
