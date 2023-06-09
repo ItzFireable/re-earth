@@ -13,25 +13,31 @@ jobs:
     strategy:
       matrix:
         projectPath: 
-          - ./Project
+          - Project
     defaults:
       run:
         shell: msys2 {0}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+        
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+          
       - uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
-          key:
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{
-            hashFiles(matrix.projectPath) }}
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-
-            Library-${{ matrix.projectPath }}-
             Library-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          lfs: true
+            
       - name: Unity - Builder
         uses: game-ci/unity-builder@v2.2.0
         env:
@@ -42,6 +48,7 @@ jobs:
           customImage: mobsakai/unity3d:2022.3.0f1-webgl
           projectPath: ${{ matrix.projectPath }}
           targetPlatform: WebGL
+          
       - uses: actions/upload-artifact@v2
         with:
           name: Build
