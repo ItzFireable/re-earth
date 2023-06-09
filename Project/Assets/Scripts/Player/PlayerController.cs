@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
 
     // Movement variables
-    private int jumpCount = 0;
+    private int jumpCount = 1;
     private bool isDead = false;
     private bool isFalling = false;
     private bool isGrounded = false;
@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     // Objects for player
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer sprRenderer;
+    [SerializeField] private ParticleSystem dust;
+    private ParticleSystemSubEmitterProperties dustProps;
 
     // Sound manager
     private PlayerSoundManager soundManager;
@@ -78,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         // Freeze player, set to dead and run death animation
         isDead = true;
+        soundManager.StopSound("Run");
         rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         animator.SetTrigger("Die");
 
@@ -109,12 +112,11 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
 
-        hitbox.GetComponent<BoxCollider2D>().enabled = true;
 
         // Wait for the animation length
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        hitbox.GetComponent<BoxCollider2D>().enabled = false;
+        
         animator.SetBool("Attacking", false);
 
         // Unfreeze player position
@@ -129,6 +131,9 @@ public class PlayerController : MonoBehaviour
         // Disable cooldown
         isOnCooldown = false;
     }
+
+    void SetAttackTrigger() => hitbox.GetComponent<BoxCollider2D>().enabled = true;
+    void SetAttackTriggerFinish() => hitbox.GetComponent<BoxCollider2D>().enabled = false;
 
     // Called before attack to check attack type & to check cooldown
     void CheckAttack(string type)
@@ -211,7 +216,7 @@ public class PlayerController : MonoBehaviour
             return;
         // Get inputs
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        // verticalInput = Input.GetAxis("Vertical");
 
         // Run these if player isn't dead
         if (!isDead && !dashing)
@@ -227,16 +232,30 @@ public class PlayerController : MonoBehaviour
             if(!isAttacking)
                 rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
 
-            if (rigidBody.velocity.x != 0 && !isAttacking)
-                soundManager.PlaySound("Run");
-            else
+            if (rigidBody.velocity.x != 0 && !isAttacking) 
+                soundManager.PlaySound("Run", loop: true);
+            else 
                 soundManager.StopSound("Run");
+
+            if(rigidBody.velocity.x != 0 && !isAttacking && !dust.isPlaying){
+                dust.Play();
+                Debug.Log("Playing");
+                }
+            else if(rigidBody.velocity.x == 0 || isAttacking || !isGrounded) {
+                dust.Stop();
+                Debug.Log("Stopped");
+                }
+            Debug.Log(dust.isPlaying);
+                
 
             // Set running on animator if player is moving (TODO: Change this)
             animator.SetBool("Running",rigidBody.velocity.x != 0 && !isAttacking);
 
             if(Input.GetKeyDown(KeyCode.Space))
                 Dash();
+
+            if(Input.GetKeyDown(KeyCode.W))
+                Jump();
             
             // If clicked, call for attack (normal)
             if (Input.GetMouseButtonDown(0))
@@ -258,7 +277,7 @@ public class PlayerController : MonoBehaviour
         Transform EnergyBar = canvas.transform.Find("EnergyBar");
         EnergyBar.GetComponent<Slider>().value = (float)System.Math.Round(energy,0);
         EnergyBar.GetComponent<Slider>().maxValue = (float)System.Math.Round(maxEnergy * maxEnergyMultiplier,0);
-        EnergyBar.Find("FillText").GetComponent<TMP_Text>().text = "Energy: " + System.Math.Round(energy,0) + "/" + System.Math.Round(maxEnergy * maxEnergyMultiplier,0);
+        EnergyBar.Find("FillText").GetComponent<TMP_Text>().text = "Energy: " + Mathf.Round(energy) + "/" + Mathf.Round(maxEnergy * maxEnergyMultiplier);
 
         // Check player health
         if (System.Math.Round(energy,0) <= 0)
@@ -266,6 +285,22 @@ public class PlayerController : MonoBehaviour
             energy = 0;
             if (isDead) return;
             StartCoroutine("Death");
+        }
+    }
+
+    void Jump()
+    {
+        if (isDead) return;
+
+        // Check if player is grounded
+        if (isGrounded)
+        {
+            // Set animator trigger and play sound
+            // animator.SetTrigger("Jump");
+            // soundManager.PlaySound("Jump");
+
+            // Add force to player
+            rigidBody.AddForce(new Vector2(0, jumpMultiplier), ForceMode2D.Impulse);
         }
     }
 

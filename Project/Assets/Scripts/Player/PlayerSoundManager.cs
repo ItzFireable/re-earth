@@ -18,9 +18,9 @@ public class PlayerSoundManager : MonoBehaviour
     string curSound = "";
 
     // Used for playing sound
-    public void PlaySound(string type, int? num = 0)
+    public void PlaySound(string type, int? num = 0, bool loop = false)
     {
-        if (curSound == type) return;
+        if (curSound == type && loop) return;
         curSound = type;
 
         // Set loopable to false and switch types, and get the correct audio for each type
@@ -32,30 +32,26 @@ public class PlayerSoundManager : MonoBehaviour
             case "Attack":
                 AudioClip sound = attackSounds[((int) num) - 1];
                 source.clip = sound;
-                source.Play(0);
                 break;
             case "HeavyAttack":
                 source.clip = heavyAttackSound;
-                source.Play(0);
                 break;
             case "Dash":
                 source.clip = dashSound;
                 source.volume = 0.5f;
-                source.Play(0);
                 break;
             case "Run":
                 source.loop = true;
                 source.clip = runSound;
                 source.volume = 0.75f;
-                source.Play(0);
                 break;
             case "Damage":
-                source.loop = true;
                 source.clip = damageSound;
                 source.volume = 0.5f;
-                source.Play(0);
                 break;
         }
+        source.Play(0);
+
     }
 
     public void StopSound(string type)
