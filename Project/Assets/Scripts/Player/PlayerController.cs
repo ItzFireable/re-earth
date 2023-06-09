@@ -237,15 +237,13 @@ public class PlayerController : MonoBehaviour
             else 
                 soundManager.StopSound("Run");
 
-            if(rigidBody.velocity.x != 0 && !isAttacking && !dust.isPlaying){
-                dust.Play();
-                Debug.Log("Playing");
+            var emission = dust.emission;
+            if(rigidBody.velocity.x != 0 && !isAttacking && !emission.enabled && isGrounded){
+                emission.enabled = true;
                 }
             else if(rigidBody.velocity.x == 0 || isAttacking || !isGrounded) {
-                dust.Stop();
-                Debug.Log("Stopped");
+                emission.enabled = false;
                 }
-            Debug.Log(dust.isPlaying);
                 
 
             // Set running on animator if player is moving (TODO: Change this)
