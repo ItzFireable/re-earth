@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
         // Enable cooldown, play sound
         isOnCooldown = true;
-        soundManager.PlayOneShot("Attack",anim);
+        soundManager.PlayOneShot("Attack"+anim);
 
         // Freeze player position
         rigidBody.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;

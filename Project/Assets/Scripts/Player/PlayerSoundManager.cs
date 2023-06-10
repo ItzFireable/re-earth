@@ -8,12 +8,7 @@ public class PlayerSoundManager : MonoBehaviour
     [SerializeField] private AudioSource source;
 
     // Audio clips
-    [SerializeField] private AudioClip runSound;
-    [SerializeField] private AudioClip dashSound;
-    [SerializeField] private AudioClip damageSound;
-
-    [SerializeField] private AudioClip[] attackSounds;
-    [SerializeField] private AudioClip heavyAttackSound;
+    [SerializeField] private List<SoundClip> soundClips;
 
     string curSound = "";
 
@@ -27,30 +22,15 @@ public class PlayerSoundManager : MonoBehaviour
         source.loop = false;
         source.volume = 1f;
         
-        switch(type)
-        {
-            case "Attack":
-                AudioClip sound = attackSounds[((int) num) - 1];
-                source.clip = sound;
-                break;
-            case "HeavyAttack":
-                source.clip = heavyAttackSound;
-                break;
-            case "Dash":
-                source.clip = dashSound;
-                source.volume = 0.5f;
-                break;
-            case "Run":
-                source.loop = true;
-                source.clip = runSound;
-                source.volume = 0.75f;
-                break;
-            case "Damage":
-                source.clip = damageSound;
-                source.volume = 0.5f;
-                break;
-        }
-        source.Play(0);
+        SoundClip clip = soundClips.Find(x => x.type == type);
+
+        if (clip == null) return;
+
+        source.clip = clip.clip;
+        source.loop = clip.loop;
+        source.volume = clip.volume;
+
+        source.Play();
 
     }
 
@@ -60,25 +40,12 @@ public class PlayerSoundManager : MonoBehaviour
         // Set loopable to false and switch types, and get the correct audio for each type
         source.volume = 1f;
         
-        switch(type)
-        {
-            case "Attack":
-                AudioClip sound = attackSounds[((int) num) - 1];
-                source.PlayOneShot(sound);
+        SoundClip clip = soundClips.Find(x => x.type == type);
 
-                break;
-            case "HeavyAttack":
-                source.clip = heavyAttackSound;
-                break;
-            case "Dash":
-                source.clip = dashSound;
-                source.volume = 0.5f;
-                break;
-            case "Damage":
-                source.clip = damageSound;
-                source.volume = 0.5f;
-                break;
-        }
+        if (clip == null) return;
+
+        clip.Play(source);
+
     }
 
     public void StopSound(string type)
@@ -89,4 +56,29 @@ public class PlayerSoundManager : MonoBehaviour
             curSound = "";
         }
     }
+}
+
+[System.Serializable]
+public class SoundClip
+{
+    public string type;
+    public AudioClip clip;
+    public bool loop;
+
+    [Range(0f, 1f)]
+    public float volume = 1f;
+
+    public SoundClip(string type, AudioClip clip, bool loop, float volume = 1f)
+    {
+        this.type = type;
+        this.clip = clip;
+        this.loop = loop;
+        this.volume = volume;
+    }
+
+    public void Play(AudioSource source)
+    {
+        source.PlayOneShot(clip, volume);
+    }
+
 }

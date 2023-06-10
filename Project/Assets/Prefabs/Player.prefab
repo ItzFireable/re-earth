@@ -126,6 +126,25 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -212,6 +231,7 @@ MonoBehaviour:
   cameraBoundaries: {fileID: 0}
   animator: {fileID: 1073995531367216748}
   sprRenderer: {fileID: 6754045802848900741}
+  dust: {fileID: 0}
   damage: 1
 --- !u!114 &4357006628730591663
 MonoBehaviour:
@@ -234,6 +254,31 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 34400d551d2301648ba672075dc858f2, type: 3}
   - {fileID: 8300000, guid: ec3e0de8f224ca04ebc531e1f57e5ac7, type: 3}
   heavyAttackSound: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
+  soundClips:
+  - type: Run
+    clip: {fileID: 8300000, guid: 615093a1bc230cd42a5fd3f8691f4253, type: 3}
+    loop: 1
+    volume: 0.851
+  - type: Dash
+    clip: {fileID: 8300000, guid: cca4a43bac73e264292014e5878bad7b, type: 3}
+    loop: 1
+    volume: 0.358
+  - type: Damage
+    clip: {fileID: 8300000, guid: 56f518306ebd01846bc52c44dbdc44d4, type: 3}
+    loop: 1
+    volume: 0.43
+  - type: Attack1
+    clip: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
+    loop: 1
+    volume: 1
+  - type: Attack2
+    clip: {fileID: 8300000, guid: 34400d551d2301648ba672075dc858f2, type: 3}
+    loop: 1
+    volume: 0.546
+  - type: Attack3
+    clip: {fileID: 8300000, guid: ec3e0de8f224ca04ebc531e1f57e5ac7, type: 3}
+    loop: 1
+    volume: 0.352
 --- !u!212 &6754045802848900741
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -324,6 +369,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 0f60431455031e145828047685f6f712, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -338,6 +389,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
