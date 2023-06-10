@@ -246,14 +246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 1861787655676471240}
-  runSound: {fileID: 8300000, guid: 615093a1bc230cd42a5fd3f8691f4253, type: 3}
-  dashSound: {fileID: 8300000, guid: cca4a43bac73e264292014e5878bad7b, type: 3}
-  damageSound: {fileID: 8300000, guid: 56f518306ebd01846bc52c44dbdc44d4, type: 3}
-  attackSounds:
-  - {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
-  - {fileID: 8300000, guid: 34400d551d2301648ba672075dc858f2, type: 3}
-  - {fileID: 8300000, guid: ec3e0de8f224ca04ebc531e1f57e5ac7, type: 3}
-  heavyAttackSound: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
   soundClips:
   - type: Run
     clip: {fileID: 8300000, guid: 615093a1bc230cd42a5fd3f8691f4253, type: 3}
@@ -261,23 +253,23 @@ MonoBehaviour:
     volume: 0.851
   - type: Dash
     clip: {fileID: 8300000, guid: cca4a43bac73e264292014e5878bad7b, type: 3}
-    loop: 1
+    loop: 0
     volume: 0.358
   - type: Damage
     clip: {fileID: 8300000, guid: 56f518306ebd01846bc52c44dbdc44d4, type: 3}
-    loop: 1
+    loop: 0
     volume: 0.43
   - type: Attack1
     clip: {fileID: 8300000, guid: 2a35192121671ac4caeb07921487e484, type: 3}
-    loop: 1
+    loop: 0
     volume: 1
   - type: Attack2
     clip: {fileID: 8300000, guid: 34400d551d2301648ba672075dc858f2, type: 3}
-    loop: 1
+    loop: 0
     volume: 0.546
   - type: Attack3
     clip: {fileID: 8300000, guid: ec3e0de8f224ca04ebc531e1f57e5ac7, type: 3}
-    loop: 1
+    loop: 0
     volume: 0.352
 --- !u!212 &6754045802848900741
 SpriteRenderer:

@@ -156,6 +156,9 @@ public class PlayerController : MonoBehaviour
 
         // Add energy
         energy += (amount * energyGainMultiplier);
+
+        // TODO: Change this to work without getting components
+        GetComponent<PlayerEnergy>().GainEnergy(amount);
         
         // Energy limit
         if(energy > maxEnergy)
@@ -176,6 +179,9 @@ public class PlayerController : MonoBehaviour
         }
 
         energy -= amount;
+
+        // TODO: Change this to work without getting components
+        GetComponent<PlayerEnergy>().LoseEnergy(amount);
 
         // Energy limit
         if(energy < 0)
@@ -233,17 +239,15 @@ public class PlayerController : MonoBehaviour
             if(!isAttacking)
                 rigidBody.velocity = new Vector2(Mathf.Abs(horizontalInput) * speedMultiplier * targetDirection, rigidBody.velocity.y);
 
-            if (rigidBody.velocity.x != 0 && !isAttacking) 
+            // Run dust particle system & audio if player is moving
+            if(rigidBody.velocity.x != 0 && !isAttacking && isGrounded){
                 soundManager.PlaySound("Run", loop: true);
-            else 
-                soundManager.StopSound("Run");
-
-
-            // Run dust particle system if player is moving
-            if(rigidBody.velocity.x != 0 && !isAttacking && isGrounded)
                 ToggleDust(true);
-            else if(rigidBody.velocity.x == 0 || isAttacking || !isGrounded) 
+            }
+            else if(rigidBody.velocity.x == 0 || isAttacking || !isGrounded){
                 ToggleDust(false);
+                soundManager.StopSound("Run");
+            }
                 
                 
 
@@ -273,10 +277,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // Update UI
-        Transform EnergyBar = canvas.transform.Find("EnergyBar");
-        EnergyBar.GetComponent<Slider>().value = (float)System.Math.Round(energy,0);
-        EnergyBar.GetComponent<Slider>().maxValue = (float)System.Math.Round(maxEnergy * maxEnergyMultiplier,0);
-        EnergyBar.Find("FillText").GetComponent<TMP_Text>().text = "Energy: " + Mathf.Round(energy) + "/" + Mathf.Round(maxEnergy * maxEnergyMultiplier);
+        // Transform EnergyBar = canvas.transform.Find("EnergyBar");
+        // EnergyBar.GetComponent<Slider>().value = (float)System.Math.Round(energy,0);
+        // EnergyBar.GetComponent<Slider>().maxValue = (float)System.Math.Round(maxEnergy * maxEnergyMultiplier,0);
+        // EnergyBar.Find("FillText").GetComponent<TMP_Text>().text = "Energy: " + Mathf.Round(energy) + "/" + Mathf.Round(maxEnergy * maxEnergyMultiplier);
 
         // Check player health
         if (System.Math.Round(energy,0) <= 0)
