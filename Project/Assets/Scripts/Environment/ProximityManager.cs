@@ -45,7 +45,7 @@ public class ProximityManager : MonoBehaviour
                 promptObject.SetActive(false);
                 promptObject.name = "Prompt";
                 
-                promptObject.transform.parent = child.transform.Find("Real Position");
+                promptObject.transform.SetParent(child.transform.Find("Real Position"), false);
             }
             else{
                 if(child != nearestObject)
@@ -88,19 +88,23 @@ public class ProximityManager : MonoBehaviour
 
         isInRange = nearestSqlLen < distance * distance;
 
+        // 💀
         if (nearestObject)
         {
             if (isInRange)
             {
                 if (nearestObject.GetComponent<EnemyController>().isDead && nearestObject.Find("Real Position").Find("Prompt"))
                 {
-                    nearestObject.Find("Real Position").Find("Prompt").gameObject.SetActive(true);
-                    nearestObject.Find("Real Position").Find("Prompt").localScale = new Vector3(nearestObject.localScale.x < 0 ? -0.5f : 0.5f,0.5f,0.5f);
-                    nearestObject.Find("Real Position").Find("Prompt").position = new Vector3(nearestObject.Find("Real Position").position.x,nearestObject.Find("Real Position").position.y + 1,0);
+                    var prompt = nearestObject.Find("Real Position").Find("Prompt");
+                    prompt.gameObject.SetActive(true);
+                    prompt.localScale = new Vector3(nearestObject.localScale.x < 0 ? -0.5f : 0.5f,0.5f,0.5f);
+                    prompt.position = new Vector3(nearestObject.Find("Real Position").position.x,nearestObject.Find("Real Position").position.y + 1,0);
 
                     if (Input.GetKey(KeyCode.E))
                     {
                         progress += Time.deltaTime;
+                        // pls change this
+                        prompt.GetComponentInChildren<Slider>().value = progress / timeToCollect;
                         if(progress >= timeToCollect)
                         {
                             player.GetComponent<PlayerController>().GainEnergy(10);
@@ -118,6 +122,7 @@ public class ProximityManager : MonoBehaviour
                     else if(Input.GetKeyUp(KeyCode.E))
                     {
                         progress = 0;
+                        prompt.GetComponentInChildren<Slider>().value = 0;
                     }
                 } 
             }

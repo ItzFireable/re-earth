@@ -7392,7 +7392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8680877810388583423, guid: c17f3fa53a9c88a4ba2fd0a4576b4fc7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8680877811723430416, guid: c17f3fa53a9c88a4ba2fd0a4576b4fc7, type: 3}
       propertyPath: m_LocalScale.x
@@ -7458,6 +7458,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3605925414912320864, guid: 5c510c65aaeb9d64482115b662b5b754, type: 3}
   m_PrefabInstance: {fileID: 1929369926}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &853310108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853310092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588790d5291b4b949b00cd43f7b33ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1955278705}
+  maxEnergy: 100
+  energyGainMultiplier: 1
+  maxEnergyMultiplier: 1
+  energyLossRate: 1
+  energySmoothening: 0.1
 --- !u!1 &901990331
 GameObject:
   m_ObjectHideFlags: 0
@@ -11290,7 +11308,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718530838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3872777, y: 0.48052, z: -10}
+  m_LocalPosition: {x: 1.3915808, y: 0.48053992, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11601,7 +11619,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3605925414912320864, guid: 5c510c65aaeb9d64482115b662b5b754, type: 3}
       insertIndex: -1
       addedObject: {fileID: 163292405}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6065092027514478640, guid: 5c510c65aaeb9d64482115b662b5b754, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 853310108}
   m_SourcePrefab: {fileID: 100100000, guid: 5c510c65aaeb9d64482115b662b5b754, type: 3}
 --- !u!1001 &1955278704
 PrefabInstance:

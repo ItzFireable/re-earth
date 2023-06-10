@@ -38,16 +38,14 @@ public class PlayerEnergy : MonoBehaviour
 
     void Update()
     {
-        if (energy > 0)
-        {
-            if(energy < 0)
-                energy = 0;
 
-            energy -= energyLossRate * Time.deltaTime;
-            EnergyBar.value = Mathf.Lerp(EnergyBar.value, energy, energySmoothening);
+        if(energy < 0)
+            energy = 0;
 
-            EnergyText.text = "Energy: " + Mathf.Round(energy) + "/" + Mathf.Round(maxEnergy * maxEnergyMultiplier);
-        }
+        EnergyBar.value = Mathf.Lerp(EnergyBar.value, energy, energySmoothening);
+        EnergyText.text = "Energy: " + Mathf.Round(energy) + "/" + Mathf.Round(maxEnergy * maxEnergyMultiplier);
+        
+        energy -= energyLossRate * Time.deltaTime;
 
         if (energy <= 0)
         {

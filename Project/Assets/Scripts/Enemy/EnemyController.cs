@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class EnemyController : MonoBehaviour
 {
     // Serialized fields for the enemy
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject player;
+    [SerializeField] private PlayerController player;
     [SerializeField] private GameObject realPosition;
     [SerializeField] public RoundManager roundManager;
 
@@ -39,7 +40,7 @@ public class EnemyController : MonoBehaviour
     {
         // Get health & player
         health = maxHealth;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -47,7 +48,7 @@ public class EnemyController : MonoBehaviour
     {
         difference = realPosition.transform.position.x - player.transform.position.x;
         
-        if(player.GetComponent<PlayerController>().energy > 0 && !isDead){
+        if(!player.isDead && !isDead){
             if(!attacking)
                 FaceToPlayer();
             if(Mathf.Abs(difference) < attackDistance && !attacking)
@@ -125,6 +126,9 @@ public class EnemyController : MonoBehaviour
         {
             hasAttacked = true;
             col.gameObject.GetComponent<PlayerController>().TakeDamage(damage,true);
+
+            // TODO: Make this player sided
+            GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         }
     }
 
@@ -137,7 +141,6 @@ public class EnemyController : MonoBehaviour
         {
             animator.SetTrigger("Death");
             isDead = true;
-            
             roundManager.setKill(gameObject);
         }
         else

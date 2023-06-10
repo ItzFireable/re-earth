@@ -10,7 +10,6 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     // Serialized objects for player
-    [SerializeField] Canvas canvas;
     [SerializeField] GameObject hitbox;
     [SerializeField] GameObject cameraPoint;
     [SerializeField] Rigidbody2D rigidBody;
@@ -20,21 +19,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpMultiplier;
     [SerializeField] float jumpLimit;
 
-    // Energy variables
-    [SerializeField] public float energy = 100;
-    [SerializeField] public float maxEnergy = 100;
-
-    // Energy multipliers
-    [SerializeField] public float energyGainMultiplier = 1;
-    [SerializeField] public float maxEnergyMultiplier = 1;
-
     // Inputs
     private float verticalInput;
     private float horizontalInput;
 
     // Movement variables
     private int jumpCount = 1;
-    private bool isDead = false;
+    public bool isDead { get; private set; } = false;
     private bool isFalling = false;
     private bool isGrounded = false;
     private bool isAttacking = false;
@@ -155,16 +146,16 @@ public class PlayerController : MonoBehaviour
         if (isDead) return;
 
         // Add energy
-        energy += (amount * energyGainMultiplier);
+        // energy += (amount * energyGainMultiplier);
 
         // TODO: Change this to work without getting components
         GetComponent<PlayerEnergy>().GainEnergy(amount);
         
         // Energy limit
-        if(energy > maxEnergy)
-        {
-            energy = maxEnergy;
-        }
+        // if(energy > maxEnergy)
+        // {
+        //     energy = maxEnergy;
+        // }
     }
 
     public void TakeDamage(float amount, bool playAnim)
@@ -178,22 +169,22 @@ public class PlayerController : MonoBehaviour
             soundManager.PlaySound("Damage");
         }
 
-        energy -= amount;
+        // energy -= amount;
 
         // TODO: Change this to work without getting components
         GetComponent<PlayerEnergy>().LoseEnergy(amount);
 
         // Energy limit
-        if(energy < 0)
-        {
-            energy = 0;
-        }
+        // if(energy < 0)
+        // {
+        //     energy = 0;
+        // }
     }
 
-    void DamageOverTime()
-    {
-        energy -= 1f;
-    }
+    // void DamageOverTime()
+    // {
+    //     energy -= 1f;
+    // }
 
     void Start()
     {
@@ -201,7 +192,7 @@ public class PlayerController : MonoBehaviour
         soundManager = GetComponent<PlayerSoundManager>();
 
         // Take damage over time
-        InvokeRepeating("DamageOverTime", 1f, 1f);
+        // InvokeRepeating("DamageOverTime", 1f, 1f);
 
         // Get start time
         startTime = Time.time;
@@ -283,12 +274,12 @@ public class PlayerController : MonoBehaviour
         // EnergyBar.Find("FillText").GetComponent<TMP_Text>().text = "Energy: " + Mathf.Round(energy) + "/" + Mathf.Round(maxEnergy * maxEnergyMultiplier);
 
         // Check player health
-        if (System.Math.Round(energy,0) <= 0)
-        {
-            energy = 0;
-            if (isDead) return;
-            StartCoroutine("Death");
-        }
+        // if (System.Math.Round(energy,0) <= 0)
+        // {
+        //     energy = 0;
+        //     if (isDead) return;
+        //     StartCoroutine("Death");
+        // }
     }
 
     void ToggleDust(bool toggle){
