@@ -116,7 +116,7 @@ Transform:
   - {fileID: 1805952221425897230}
   - {fileID: 7633264546836082642}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3764492862092257
 MonoBehaviour:
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMultiplier: 2
   foregroundSpeedMultiplier: 0.8
-  cloneAmount: 5
+  cloneAmount: 25
   cloneRight: 1
   background: {fileID: 3764493042237608}
   foreground: {fileID: 3764492010336281}
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   parallexEffect: 0.7
+  speedMultiplier: -0.1
 --- !u!1 &5949476480293389878
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   parallexEffect: 0.5
+  speedMultiplier: -0.2
 --- !u!1 &8418358405469271189
 GameObject:
   m_ObjectHideFlags: 0

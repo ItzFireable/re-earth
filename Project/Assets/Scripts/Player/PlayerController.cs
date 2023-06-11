@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
@@ -10,9 +11,15 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     // Serialized objects for player
-    [SerializeField] GameObject hitbox;
+    [SerializeField] Transform hitbox;
+    [SerializeField] private Transform center;
     [SerializeField] GameObject cameraPoint;
     [SerializeField] Rigidbody2D rigidBody;
+    [SerializeField] private LayerMask groundLayer;
+
+    // Events
+    [SerializeField] private UnityEvent onInterrupted;
+    [SerializeField] private UnityEvent onDeath;
 
     // Serialized movement variables
     [SerializeField] float speedMultiplier;
@@ -28,8 +35,8 @@ public class PlayerController : MonoBehaviour
     public bool isDead { get; private set; } = false;
     private bool isFalling = false;
     private bool isGrounded = false;
-    private bool isAttacking = false;
-    private bool isOnCooldown = false;
+    public bool isAttacking = false;
+    public bool isOnCooldown = false;
     private float targetDirection = 1;
 
     private bool dashing = false;
@@ -44,7 +51,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer sprRenderer;
     [SerializeField] private ParticleSystem dust;
-    private ParticleSystemSubEmitterProperties dustProps;
 
     // Sound manager
     private PlayerSoundManager soundManager;
@@ -69,6 +75,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Death()
     {
+        onDeath.Invoke();
         // Freeze player, set to dead and run death animation
         isDead = true;
         soundManager.StopSound("Run");
@@ -102,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
         // Enable hitbox collision check
         isAttacking = true;
-        hitbox.transform.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
+        hitbox.localPosition = new Vector3((1.5f*targetDirection),-0.95f,0);
 
 
         // Wait for the animation length
@@ -166,7 +173,8 @@ public class PlayerController : MonoBehaviour
         if (playAnim)
         {
             animator.SetTrigger("TakeDamage");
-            soundManager.PlaySound("Damage");
+            soundManager.PlayOneShot("Damage");
+            onInterrupted.Invoke();
         }
 
         // energy -= amount;
@@ -261,7 +269,8 @@ public class PlayerController : MonoBehaviour
         else if(dashing && !isDead)
         {
             Vector2 playerPos = new Vector2(transform.position.x, transform.position.y);
-            if(playerPos != dashPoint)
+            bool facingWall = Physics2D.Raycast(playerPos, center.right * targetDirection, 0.5f, groundLayer);
+            if(playerPos != dashPoint && !facingWall)
                 transform.position = Vector2.MoveTowards(transform.position, dashPoint, dashSpeed * Time.deltaTime);
             else
                 dashing = false;
@@ -309,18 +318,24 @@ public class PlayerController : MonoBehaviour
     {
         dashing = true;
         animator.SetTrigger("Dash");
-        soundManager.PlaySound("Dash");
+        soundManager.PlayOneShot("Dash");
+        onInterrupted.Invoke();
 
-        if((transform.position.x + (dashDistance * targetDirection)) < maxX && (transform.position.x + (dashDistance * targetDirection)) > minX)
-        {
-            dashPoint = new Vector2(transform.position.x + dashDistance * targetDirection, transform.position.y);
-        }
-        else if((transform.position.x + (dashDistance * targetDirection)) > maxX){
-            dashPoint = new Vector2(maxX - 0.5f, transform.position.y);
-        }
-        else if((transform.position.x + (dashDistance * targetDirection)) < minX){
-            dashPoint = new Vector2(minX + 0.5f, transform.position.y);
-        }
+
+        dashPoint = new Vector2(transform.position.x + dashDistance * targetDirection, transform.position.y);
+
+        // else if((transform.position.x + (dashDistance * targetDirection)) > maxX){
+        //     dashPoint = new Vector2(maxX - 0.5f, transform.position.y);
+        // }
+        // else if((transform.position.x + (dashDistance * targetDirection)) < minX){
+        //     dashPoint = new Vector2(minX + 0.5f, transform.position.y);
+        // }
+    }
+
+    void CancelDash()
+    {
+        dashing = false;
+        dashPoint = transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -365,6 +380,8 @@ public class PlayerController : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireCube(hitbox.transform.position, new Vector3(2, 0.5f, 1));
+        Gizmos.DrawWireCube(hitbox.position, new Vector3(2, 0.5f, 1));
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector2.right * targetDirection * 1.5f);
     }
 }

@@ -19,6 +19,8 @@ public class GameEnding : MonoBehaviour
         promptObject = Instantiate(prompt);
         promptObject.transform.SetParent(transform);
         promptObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+        promptObject.SetActive(false);
+
     }
 
     // Update is called once per frame

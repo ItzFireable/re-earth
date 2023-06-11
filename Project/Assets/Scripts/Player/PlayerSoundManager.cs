@@ -34,12 +34,9 @@ public class PlayerSoundManager : MonoBehaviour
 
     }
 
+    // Most sound clips are played as one shots
     public void PlayOneShot(string type, int? num = 0) 
     {
-
-        // Set loopable to false and switch types, and get the correct audio for each type
-        source.volume = 1f;
-        
         SoundClip clip = soundClips.Find(x => x.type == type);
 
         if (clip == null) return;

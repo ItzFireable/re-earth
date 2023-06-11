@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 2
   player: {fileID: 0}
+  prompt: {fileID: 4097797310285701452, guid: 17f2e41d7ae562345879d5a6cea6533c, type: 3}
   targetList: {fileID: 0}
+  collectSource: {fileID: 0}
   nearestObject: {fileID: 0}
   isInRange: 0
